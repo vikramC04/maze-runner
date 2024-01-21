@@ -17,11 +17,12 @@ public class Config {
 
     }
 
-    public void assessValidPath() throws FileNotFoundException {
+    public String assessValidPath() throws FileNotFoundException {
         BufferedReader reader = new BufferedReader(new FileReader(filepath));
+        return filepath;
     }
 
-    public void configure(String[] args) throws ParseException  {
+    public String configure(String[] args) throws ParseException  {
         logger.info("** Starting Maze Runner");
         Options options = new Options();
         options.addOption("i", true, "Path to file containing maze");
@@ -30,7 +31,7 @@ public class Config {
         CommandLine cmd = parser.parse(options, args);
         this.filepath = cmd.getOptionValue("i", "./examples/small.maz.txt");
         this.path_sequence = cmd.getOptionValue("p");
-
         logger.info("**** Reading the maze from file " + filepath);
+        return this.path_sequence;
     }
 }

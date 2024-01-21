@@ -17,12 +17,13 @@ public class Main {
     public static void main(String[] args) {
         try {
             Config conf = new Config(args);
-            conf.configure(args);
-            conf.assessValidPath();
-            MazeSolver solver = new MazeSolver();
+            String path_sequence = conf.configure(args);
+            String filepath = conf.assessValidPath();
+            MazeSolver solver = new MazeSolver(filepath, path_sequence);
             solver.solve();
         } catch(Exception e) {
-            logger.error("/!\\ An error has occured /!\\");
+            //logger.error("/!\\ An error has occured /!\\");
+            logger.error(e.getMessage());
         }
 //        logger.info("**** Computing path");
 //        logger.info("PATH NOT COMPUTED");
