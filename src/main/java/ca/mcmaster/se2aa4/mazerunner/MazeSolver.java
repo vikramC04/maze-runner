@@ -74,6 +74,7 @@ public class MazeSolver {
             }
             counter++;
         }
+        
         return null;
     }
 
