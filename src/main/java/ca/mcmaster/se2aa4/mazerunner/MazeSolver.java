@@ -26,6 +26,7 @@ public class MazeSolver {
             map_maze(filepath);
             String[] maze_map = new String[maze.size()];
             maze_map = maze.toArray(maze_map);
+            path_sequence = processPathSequence(path_sequence);
             boolean verdict = verifyPath(west,east,0, maze_map)
                     || verifyPath(east,west,2, maze_map);
             if(verdict) {
@@ -76,11 +77,35 @@ public class MazeSolver {
         return null;
     }
 
+    public String processPathSequence(String path_sequence) {
+        String path = "";
+        int i=0;
+        if(path_sequence.matches(".*\\d.*")) {
+            while(i < path_sequence.length()) {
+                char current = path_sequence.charAt(i);
+                 if(Character.isDigit(current)) {
+                     path += path_sequence.substring(i+1,i+2).repeat(path_sequence.charAt(i) - '0');
+                     i++;
+                 }else if(i+1 >= path_sequence.length() || Character.isDigit(path_sequence.charAt(i+1))) {
+                     path += current;
+                 }
+                 i++;
+            }
+        } else {
+            path = path_sequence;
+        }
+        logger.info("Path sequence: " + path);
+        return path;
+    }
+
     public boolean verifyPath(Tile start, Tile end, int starting_direction, String[] maze_map) throws IOException {
         int direction = starting_direction;
         int x = start.getX();
         int y = start.getY();
         for(char c : path_sequence.toCharArray()) {
+            if((y >= maze_map.length || x >= maze_map[0].length() || x < 0 || y < 0) || !(maze_map[y].isEmpty()) && maze_map[y].charAt(x) == '#') {
+                return false;
+            }
             if(c == 'F') {
                 if(direction == 0) {
                     x++;
@@ -103,9 +128,6 @@ public class MazeSolver {
                 } else {
                     direction -= 1;
                 }
-            }
-            if(!(maze_map[y].isEmpty()) && maze_map[y].charAt(x) == '#') {
-                return false;
             }
         }
         return (x == end.getX() && y == end.getY());
