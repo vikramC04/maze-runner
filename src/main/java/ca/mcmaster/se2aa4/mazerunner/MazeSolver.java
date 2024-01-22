@@ -19,16 +19,14 @@ public class MazeSolver {
     }
     public void solve() {
         try {
-            Tile t = getStartingCoordinates();
-            Tile d = getEndingCoordinates();
-            boolean verdict = verifyPath(t,d);
+            Tile west = getStartingCoordinates();
+            Tile east = getEndingCoordinates();
+            boolean verdict = verifyPath(west,east,0);
             if(verdict) {
                 System.out.println("correct path");
             } else {
                 System.out.println("incorrect path");
             }
-//            System.out.printf("\n(%d,%d)", t.getX(), t.getY());
-//            System.out.printf("\n(%d,%d)", d.getX(), d.getY());
         }catch(Exception e) {
             logger.error("error occured");
             logger.error(e.getMessage());
@@ -66,38 +64,37 @@ public class MazeSolver {
         return null;
     }
 
-    public boolean verifyPath(Tile start, Tile end) throws IOException {
-        int direction = 0;
+    public boolean verifyPath(Tile start, Tile end, int starting_direction) throws IOException {
+        int direction = starting_direction;
         int x = start.getX();
         int y = start.getY();
         for(char c : path_sequence.toCharArray()) {
-            switch(c) {
-                case 'F':
-                    if(direction == 0) {
-                        x++;
-                    } else if(direction == 1) {
-                        y--;
-                    } else if(direction == 2) {
-                        x--;
-                    } else if(direction == 3) {
-                        y++;
-                    }
-                case 'R':
-                    if(direction == 3) {
-                        direction = 0;
-                    } else {
-                        direction++;
-                    }
-                case 'L':
-                    if(direction == 0) {
-                        direction = 3;
-                    } else {
-                        direction--;
-                    }
+            if(c == 'F') {
+                if(direction == 0) {
+                    x++;
+                } else if(direction == 1) {
+                    y++;
+                } else if(direction == 2) {
+                    x--;
+                } else if(direction == 3) {
+                    y--;
+                }
+            } else if(c == 'R') {
+                if(direction == 3) {
+                    direction = 0;
+                } else {
+                    direction += 1;
+                }
+            } else if(c == 'L') {
+                if(direction == 0) {
+                    direction = 3;
+                } else {
+                    direction -= 1;
+                }
             }
         }
-        if((x == end.getX() && y == end.getY())) return true;
-        
-        return false;
+
+        return (x == end.getX() && y == end.getY());
     }
 }
+
