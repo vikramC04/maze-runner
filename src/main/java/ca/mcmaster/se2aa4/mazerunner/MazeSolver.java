@@ -7,11 +7,13 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MazeSolver {
     private String filepath;
     private String path_sequence;
     private static final Logger logger = LogManager.getLogger();
+    private ArrayList<String> maze = new ArrayList<>();
     public MazeSolver(String filepath, String path_sequence) throws FileNotFoundException {
         this.filepath = filepath;
         this.path_sequence = path_sequence;
@@ -21,8 +23,11 @@ public class MazeSolver {
         try {
             Tile west = getStartingCoordinates();
             Tile east = getEndingCoordinates();
-            boolean verdict = verifyPath(west,east,0)
-                    || verifyPath(east,west,2);
+            map_maze(filepath);
+            String[] maze_map = new String[maze.size()];
+            maze_map = maze.toArray(maze_map);
+            boolean verdict = verifyPath(west,east,0, maze_map)
+                    || verifyPath(east,west,2, maze_map);
             if(verdict) {
                 System.out.println("correct path");
             } else {
@@ -34,6 +39,13 @@ public class MazeSolver {
         }
 
 
+    }
+    public void map_maze(String filepath) throws IOException {
+        String line;
+        BufferedReader reader = new BufferedReader(new FileReader(filepath));
+        while((line = reader.readLine()) != null) {
+            maze.add(line);
+        }
     }
     public Tile getStartingCoordinates() throws IOException {
         String line;
@@ -64,7 +76,7 @@ public class MazeSolver {
         return null;
     }
 
-    public boolean verifyPath(Tile start, Tile end, int starting_direction) throws IOException {
+    public boolean verifyPath(Tile start, Tile end, int starting_direction, String[] maze_map) throws IOException {
         int direction = starting_direction;
         int x = start.getX();
         int y = start.getY();
@@ -92,8 +104,10 @@ public class MazeSolver {
                     direction -= 1;
                 }
             }
+            if(!(maze_map[y].isEmpty()) && maze_map[y].charAt(x) == '#') {
+                return false;
+            }
         }
-
         return (x == end.getX() && y == end.getY());
     }
 }
