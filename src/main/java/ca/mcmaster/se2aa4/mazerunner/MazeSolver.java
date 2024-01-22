@@ -21,7 +21,8 @@ public class MazeSolver {
         try {
             Tile west = getStartingCoordinates();
             Tile east = getEndingCoordinates();
-            boolean verdict = verifyPath(west,east,0);
+            boolean verdict = verifyPath(west,east,0)
+                    || verifyPath(east,west,2);
             if(verdict) {
                 System.out.println("correct path");
             } else {
@@ -30,7 +31,6 @@ public class MazeSolver {
         }catch(Exception e) {
             logger.error("error occured");
             logger.error(e.getMessage());
-            logger.error(e.getStackTrace());
         }
 
 
@@ -97,4 +97,5 @@ public class MazeSolver {
         return (x == end.getX() && y == end.getY());
     }
 }
+
 
