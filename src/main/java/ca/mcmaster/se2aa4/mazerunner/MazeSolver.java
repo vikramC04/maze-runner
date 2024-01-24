@@ -21,19 +21,24 @@ public class MazeSolver {
     }
     public void solve() {
         try {
-            Tile west = getStartingCoordinates();
-            Tile east = getEndingCoordinates();
-            map_maze(filepath);
-            String[] maze_map = new String[maze.size()];
-            maze_map = maze.toArray(maze_map);
-            path_sequence = processPathSequence(path_sequence);
-            boolean verdict = verifyPath(west,east,0, maze_map)
-                    || verifyPath(east,west,2, maze_map);
-            if(verdict) {
-                System.out.println("correct path");
+            if(path_sequence != null) {
+                Tile west = getStartingCoordinates();
+                Tile east = getEndingCoordinates();
+                map_maze(filepath);
+                String[] maze_map = new String[maze.size()];
+                maze_map = maze.toArray(maze_map);
+                path_sequence = processPathSequence(path_sequence);
+                boolean verdict = verifyPath(west,east,0, maze_map)
+                        || verifyPath(east,west,2, maze_map);
+                if(verdict) {
+                    System.out.println("correct path");
+                } else {
+                    System.out.println("incorrect path");
+                }
             } else {
-                System.out.println("incorrect path");
+                logger.info("\nExecuting right hand path finding");
             }
+
         }catch(Exception e) {
             logger.error("error occured");
             logger.error(e.getMessage());
