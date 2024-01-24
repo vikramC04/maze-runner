@@ -8,15 +8,21 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MazeSolver {
     private String filepath;
     private String path_sequence;
     private static final Logger logger = LogManager.getLogger();
     private ArrayList<String> maze = new ArrayList<>();
-    public MazeSolver(String filepath, String path_sequence) throws FileNotFoundException {
+
+    private int[][] maze_binary;
+    public MazeSolver(String filepath, String path_sequence, Maze maze) throws FileNotFoundException {
         this.filepath = filepath;
         this.path_sequence = path_sequence;
+        maze_binary = maze.getMaze().clone();
+        logger.info("Printing from maze solver: ");
+        logger.info(Arrays.deepToString(maze_binary));
 
     }
     public void solve() {
@@ -37,8 +43,8 @@ public class MazeSolver {
                 }
             } else {
                 logger.info("\nExecuting right hand path finding");
-            }
 
+            }
         }catch(Exception e) {
             logger.error("error occured");
             logger.error(e.getMessage());
@@ -137,6 +143,22 @@ public class MazeSolver {
             }
         }
         return (x == end.getX() && y == end.getY());
+    }
+    public String rightHandPathFinding(Tile start, Tile end, String[] maze_map) {
+        int direction = 0;
+        int x = start.getX();
+        int y = start.getY();
+        while(x != end.getX() || y != end.getY()) {
+            if(direction == 0) {
+                if(maze_map[y+1].charAt(x) == ' ') {
+                    return " ";
+                }
+            }
+        }
+
+
+
+        return "";
     }
 }
 
