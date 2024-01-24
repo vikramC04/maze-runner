@@ -19,7 +19,10 @@ public class Main {
             Config conf = new Config(args);
             String path_sequence = conf.configure(args);
             String filepath = conf.assessValidPath();
-            MazeSolver solver = new MazeSolver(filepath, path_sequence);
+            Maze maze = new Maze(filepath);
+            //logger.info("\nPrint map");
+            //maze.printMap();
+            MazeSolver solver = new MazeSolver(filepath, path_sequence, maze);
             solver.solve();
         } catch(Exception e) {
             //logger.error("/!\\ An error has occured /!\\");
