@@ -106,7 +106,7 @@ public class MazeSolver {
         } else {
             path = path_sequence;
         }
-        logger.info("Path sequence: " + path);
+        //logger.info("Path sequence: " + path);
         return path;
     }
 
@@ -115,7 +115,7 @@ public class MazeSolver {
         int x = start.getX();
         int y = start.getY();
         for(char c : path_sequence.toCharArray()) {
-            if((y >= maze_map.length || x >= maze_map[0].length() || x < 0 || y < 0) || !(maze_map[y].isEmpty()) && maze_map[y].charAt(x) == '#') {
+            if((y >= maze_map.length || x >= maze_map[0].length() || x < 0 || y < 0) || !(maze_map[y].isEmpty()) && maze_binary[y][x] == 1) {
                 return false;
             }
             if(c == 'F') {
