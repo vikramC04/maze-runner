@@ -34,8 +34,8 @@ public class MazeSolver {
                 String[] maze_map = new String[maze.size()];
                 maze_map = maze.toArray(maze_map);
                 path_sequence = processPathSequence(path_sequence);
-                boolean verdict = verifyPath(west,east,0, maze_map)
-                        || verifyPath(east,west,2, maze_map);
+                boolean verdict = verifyPath(west,east,Direction.EAST, maze_map)
+                        || verifyPath(east,west,Direction.WEST, maze_map);
                 if(verdict) {
                     System.out.println("correct path");
                 } else {
@@ -110,8 +110,8 @@ public class MazeSolver {
         return path;
     }
 
-    public boolean verifyPath(Tile start, Tile end, int starting_direction, String[] maze_map) throws IOException {
-        int direction = starting_direction;
+    public boolean verifyPath(Tile start, Tile end, Direction direction, String[] maze_map) throws IOException {
+        //int direction = 0;
         int x = start.getX();
         int y = start.getY();
         for(char c : path_sequence.toCharArray()) {
@@ -119,26 +119,34 @@ public class MazeSolver {
                 return false;
             }
             if(c == 'F') {
-                if(direction == 0) {
+                if(direction == Direction.EAST) {
                     x++;
-                } else if(direction == 1) {
+                } else if(direction == Direction.SOUTH) {
                     y++;
-                } else if(direction == 2) {
+                } else if(direction == Direction.WEST) {
                     x--;
-                } else if(direction == 3) {
+                } else if(direction == Direction.NORTH) {
                     y--;
                 }
             } else if(c == 'R') {
-                if(direction == 3) {
-                    direction = 0;
-                } else {
-                    direction += 1;
+                if(direction == Direction.EAST) {
+                    direction = Direction.SOUTH;
+                } else if(direction == Direction.SOUTH) {
+                    direction = Direction.WEST;
+                } else if(direction == Direction.WEST) {
+                    direction = Direction.NORTH;
+                }else if(direction == Direction.NORTH) {
+                    direction = Direction.EAST;
                 }
             } else if(c == 'L') {
-                if(direction == 0) {
-                    direction = 3;
-                } else {
-                    direction -= 1;
+                if(direction == Direction.EAST) {
+                    direction = Direction.NORTH;
+                } else if(direction == Direction.NORTH) {
+                    direction = Direction.WEST;
+                } else if(direction == Direction.WEST) {
+                    direction = Direction.SOUTH;
+                } else if(direction == Direction.SOUTH) {
+                    direction = Direction.EAST;
                 }
             }
         }
@@ -149,14 +157,8 @@ public class MazeSolver {
         int x = start.getX();
         int y = start.getY();
         while(x != end.getX() || y != end.getY()) {
-            if(direction == 0) {
-                if(maze_map[y+1].charAt(x) == ' ') {
-                    return " ";
-                }
-            }
+            
         }
-
-
 
         return "";
     }
