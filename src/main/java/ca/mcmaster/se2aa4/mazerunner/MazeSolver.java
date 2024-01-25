@@ -64,7 +64,7 @@ public class MazeSolver {
                  if(Character.isDigit(current)) {
                      String number = String.valueOf(current);
                      i++;
-                     while(Character.isDigit(path_sequence.charAt(i))) {
+                     while(i < path_sequence.length() && Character.isDigit(path_sequence.charAt(i))) {
                          number += path_sequence.charAt(i);
                      }
                      int value = Integer.parseInt(number);
