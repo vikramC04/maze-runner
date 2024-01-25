@@ -27,15 +27,12 @@ public class MazeSolver {
     }
     public void solve() {
         try {
+            Tile west = getStartingCoordinates();
+            Tile east = getEndingCoordinates();
             if(path_sequence != null) {
-                Tile west = getStartingCoordinates();
-                Tile east = getEndingCoordinates();
-                map_maze(filepath);
-                String[] maze_map = new String[maze.size()];
-                maze_map = maze.toArray(maze_map);
                 path_sequence = processPathSequence(path_sequence);
-                boolean verdict = verifyPath(west,east,Direction.EAST, maze_map)
-                        || verifyPath(east,west,Direction.WEST, maze_map);
+                boolean verdict = verifyPath(west,east,Direction.EAST, maze_binary)
+                        || verifyPath(east,west,Direction.WEST, maze_binary);
                 if(verdict) {
                     System.out.println("correct path");
                 } else {
@@ -43,6 +40,8 @@ public class MazeSolver {
                 }
             } else {
                 logger.info("\nExecuting right hand path finding");
+                String computed_path = rightHandPathFinding(west, east, maze_binary, Direction.EAST);
+                System.out.println("The path is: " + computed_path);
 
             }
         }catch(Exception e) {
@@ -110,12 +109,12 @@ public class MazeSolver {
         return path;
     }
 
-    public boolean verifyPath(Tile start, Tile end, Direction direction, String[] maze_map) throws IOException {
+    public boolean verifyPath(Tile start, Tile end, Direction direction, int[][] maze_map) throws IOException {
         //int direction = 0;
         int x = start.getX();
         int y = start.getY();
         for(char c : path_sequence.toCharArray()) {
-            if((y >= maze_map.length || x >= maze_map[0].length() || x < 0 || y < 0) || !(maze_map[y].isEmpty()) && maze_binary[y][x] == 1) {
+            if((y >= maze_map.length || x >= maze_map[0].length || x < 0 || y < 0) || maze_map[y][x] == 1) {
                 return false;
             }
             if(c == 'F') {
@@ -152,15 +151,83 @@ public class MazeSolver {
         }
         return (x == end.getX() && y == end.getY());
     }
-    public String rightHandPathFinding(Tile start, Tile end, String[] maze_map) {
-        int direction = 0;
+    public String rightHandPathFinding(Tile start, Tile end, int[][] maze_map, Direction direction) {
         int x = start.getX();
         int y = start.getY();
+        String path = "";
         while(x != end.getX() || y != end.getY()) {
-            
+            if(direction == Direction.EAST) {
+                if(maze_map[y+1][x] == 0) {
+                    direction = Direction.SOUTH;
+                    y++;
+                    path += "RF";
+                } else if(maze_map[y][x+1] == 0) {
+                    x++;
+                    path += "F";
+                } else if(maze_map[y-1][x] == 0) {
+                    direction = Direction.NORTH;
+                    y--;
+                    path += "LF";
+                } else if(maze_map[y][x-1] == 0) {
+                    direction = Direction.WEST;
+                    x--;
+                    path += "RRF";
+                }
+            } else if(direction == Direction.SOUTH) {
+                if (maze_map[y][x-1] == 0) {
+                    direction = Direction.WEST;
+                    x--;
+                    path += "RF";
+                } else if (maze_map[y+1][x] == 0) {
+                    y++;
+                    path += "F";
+                } else if (maze_map[y][x + 1] == 0) {
+                    direction = Direction.EAST;
+                    x++;
+                    path += "LF";
+                } else if (maze_map[y-1][x] == 0) {
+                    direction = Direction.NORTH;
+                    y--;
+                    path += "RRF";
+                }
+            } else if(direction == Direction.WEST) {
+                if(maze_map[y-1][x] == 0) {
+                    direction = Direction.NORTH;
+                    y--;
+                    path += "RF";
+                } else if(maze_map[y][x-1] == 0) {
+                    x--;
+                    path += "F";
+                } else if(maze_map[y+1][x] == 0) {
+                    direction = Direction.SOUTH;
+                    y++;
+                    path += "LF";
+                } else if(maze_map[y][x+1] == 0) {
+                    direction = Direction.EAST;
+                    x++;
+                    path += "RRF";
+                }
+            } else if(direction == Direction.NORTH) {
+                if(maze_map[y][x+1] == 0) {
+                    direction = Direction.EAST;
+                    x++;
+                    path += "RF";
+                } else if(maze_map[y-1][x] == 0) {
+                    y--;
+                    path += "F";
+                } else if(maze_map[y][x-1] == 0) {
+                    direction = Direction.WEST;
+                    x--;
+                    path += "LF";
+                } else if(maze_map[y+1][x] == 0) {
+                    direction = Direction.SOUTH;
+                    y++;
+                    path += "RRF";
+                }
+            }
         }
 
-        return "";
+        return path;
     }
 }
 
