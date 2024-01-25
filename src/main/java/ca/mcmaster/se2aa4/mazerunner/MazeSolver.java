@@ -62,17 +62,23 @@ public class MazeSolver {
             while(i < path_sequence.length()) {
                 char current = path_sequence.charAt(i);
                  if(Character.isDigit(current)) {
-                     path += path_sequence.substring(i+1,i+2).repeat(path_sequence.charAt(i) - '0');
+                     String number = String.valueOf(current);
                      i++;
+                     while(Character.isDigit(path_sequence.charAt(i))) {
+                         number += path_sequence.charAt(i);
+                     }
+                     int value = Integer.parseInt(number);
+                     path += path_sequence.substring(i, i+1).repeat(value);
+
                  }else if(i+1 >= path_sequence.length() || Character.isDigit(path_sequence.charAt(i+1))) {
                      path += current;
                  }
-                 i++;
+                i++;
             }
         } else {
             path = path_sequence;
         }
-        //logger.info("Path sequence: " + path);
+        logger.info("This is the Path sequence: " + path);
         return path;
     }
 
