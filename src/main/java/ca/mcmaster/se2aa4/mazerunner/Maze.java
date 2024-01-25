@@ -17,6 +17,35 @@ public class Maze {
         this.filepath = filepath;
         createMaze();
     }
+    public Tile getStartingCoordinates() throws IOException {
+        String line;
+        int counter = 0;
+        BufferedReader reader = new BufferedReader(new FileReader(filepath));
+        while((line = reader.readLine()) != null) {
+            if(line.isEmpty() || line.charAt(0) == ' ') {
+                reader.close();
+                return new Tile(0,counter);
+            }
+            counter++;
+        }
+
+        return null;
+    }
+    public Tile getEndingCoordinates() throws IOException {
+        int counter = 1;
+        String line;
+        BufferedReader reader = new BufferedReader(new FileReader(filepath));
+        int ending = reader.readLine().stripTrailing().length() - 1;
+        while((line = reader.readLine()) != null) {
+            if(line.isEmpty() || line.charAt(ending) == ' ') {
+                reader.close();
+                return new Tile(ending,counter);
+            }
+            counter++;
+        }
+
+        return null;
+    }
     private void createMaze() throws IOException {
         logger.info("Creating maze");
         ArrayList<String> maze = new ArrayList<>();
