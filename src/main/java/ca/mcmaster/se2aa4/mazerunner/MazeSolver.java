@@ -14,7 +14,9 @@ public class MazeSolver {
     private String filepath;
     private String path_sequence;
     private static final Logger logger = LogManager.getLogger();
-    private ArrayList<String> maze = new ArrayList<>();
+    Maze maze;
+
+
 
     private int[][] maze_binary;
     public MazeSolver(String filepath, String path_sequence, Maze maze) throws FileNotFoundException {
@@ -23,12 +25,13 @@ public class MazeSolver {
         maze_binary = maze.getMaze().clone();
         logger.info("Printing from maze solver: ");
         logger.info(Arrays.deepToString(maze_binary));
+        this.maze = maze;
 
     }
     public void solve() {
         try {
-            Tile west = getStartingCoordinates();
-            Tile east = getEndingCoordinates();
+            Tile west = maze.getStartingCoordinates();
+            Tile east = maze.getEndingCoordinates();
             if(path_sequence != null) {
                 path_sequence = processPathSequence(path_sequence);
                 boolean verdict = verifyPath(west,east,Direction.EAST, maze_binary)
@@ -50,42 +53,6 @@ public class MazeSolver {
         }
 
 
-    }
-    public void map_maze(String filepath) throws IOException {
-        String line;
-        BufferedReader reader = new BufferedReader(new FileReader(filepath));
-        while((line = reader.readLine()) != null) {
-            maze.add(line);
-        }
-    }
-    public Tile getStartingCoordinates() throws IOException {
-        String line;
-        int counter = 0;
-        BufferedReader reader = new BufferedReader(new FileReader(filepath));
-        while((line = reader.readLine()) != null) {
-            if(line.isEmpty() || line.charAt(0) == ' ') {
-                reader.close();
-                return new Tile(0,counter);
-            }
-            counter++;
-        }
-
-        return null;
-    }
-    public Tile getEndingCoordinates() throws IOException {
-        int counter = 1;
-        String line;
-        BufferedReader reader = new BufferedReader(new FileReader(filepath));
-        int ending = reader.readLine().stripTrailing().length() - 1;
-        while((line = reader.readLine()) != null) {
-            if(line.isEmpty() || line.charAt(ending) == ' ') {
-                reader.close();
-                return new Tile(ending,counter);
-            }
-            counter++;
-        }
-        
-        return null;
     }
 
     public String processPathSequence(String path_sequence) {
