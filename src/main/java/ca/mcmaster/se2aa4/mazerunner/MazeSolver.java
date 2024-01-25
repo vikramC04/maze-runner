@@ -52,7 +52,6 @@ public class MazeSolver {
 
 
     }
-
     public String processPathSequence(String path_sequence) {
         logger.info("\nParsing Path Sequence");
         String path = "";
@@ -72,7 +71,6 @@ public class MazeSolver {
                      path += current;
                      i++;
                  }
-
             }
             logger.info("This is the Factorized Path sequence: " + path);
         } else {
