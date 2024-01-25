@@ -66,19 +66,19 @@ public class MazeSolver {
                          number += path_sequence.charAt(i);
                          i++;
                      }
-
                      int value = Integer.parseInt(number);
-                     path += String.valueOf(path_sequence.charAt(i)).repeat(value);
-
-                 }else if(i+1 >= path_sequence.length() || Character.isDigit(path_sequence.charAt(i+1))) {
+                     path += String.valueOf(path_sequence.charAt(i)).repeat(value - 1);
+                 }else {
                      path += current;
+                     i++;
                  }
-                i++;
+
             }
+            logger.info("This is the Factorized Path sequence: " + path);
         } else {
             path = path_sequence;
         }
-        logger.info("This is the Path sequence: " + path);
+
         return path;
     }
     private String factorizePath(String path_sequence) {
