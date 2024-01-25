@@ -15,9 +15,6 @@ public class MazeSolver {
     private String path_sequence;
     private static final Logger logger = LogManager.getLogger();
     Maze maze;
-
-
-
     private int[][] maze_binary;
     public MazeSolver(String filepath, String path_sequence, Maze maze) throws FileNotFoundException {
         this.filepath = filepath;
@@ -45,6 +42,7 @@ public class MazeSolver {
                 logger.info("\nExecuting right hand path finding");
                 String computed_path = rightHandPathFinding(west, east, maze_binary, Direction.EAST);
                 System.out.println("The path is: " + computed_path);
+                System.out.println("Factorized path is: " + factorizePath(computed_path));
 
             }
         }catch(Exception e) {
@@ -56,19 +54,21 @@ public class MazeSolver {
     }
 
     public String processPathSequence(String path_sequence) {
+        logger.info("\nParsing Path Sequence");
         String path = "";
         int i=0;
         if(path_sequence.matches(".*\\d.*")) {
             while(i < path_sequence.length()) {
                 char current = path_sequence.charAt(i);
                  if(Character.isDigit(current)) {
-                     String number = String.valueOf(current);
-                     i++;
+                     String number = "";
                      while(i < path_sequence.length() && Character.isDigit(path_sequence.charAt(i))) {
                          number += path_sequence.charAt(i);
+                         i++;
                      }
+
                      int value = Integer.parseInt(number);
-                     path += path_sequence.substring(i, i+1).repeat(value);
+                     path += String.valueOf(path_sequence.charAt(i)).repeat(value);
 
                  }else if(i+1 >= path_sequence.length() || Character.isDigit(path_sequence.charAt(i+1))) {
                      path += current;
@@ -80,6 +80,38 @@ public class MazeSolver {
         }
         logger.info("This is the Path sequence: " + path);
         return path;
+    }
+    private String factorizePath(String path_sequence) {
+        int i=0;
+        char prev = ' ';
+        String factorized = "";
+        int count = 0;
+        while(i < path_sequence.length()) {
+            if(prev == ' ') {
+                prev = path_sequence.charAt(i);
+                count++;
+            } else if (path_sequence.charAt(i) == prev) {
+                count++;
+            } else {
+                if(count != 1) {
+                    factorized += String.valueOf(count) + String.valueOf(prev)  ;
+                } else {
+                    factorized += String.valueOf(prev);
+                }
+
+                prev = path_sequence.charAt(i);
+                count = 1;
+            }
+            i++;
+        }
+        if(count != 1) {
+            factorized += String.valueOf(count) + String.valueOf(prev)  ;
+        } else {
+            factorized += String.valueOf(prev);
+        }
+
+
+        return factorized;
     }
 
     public boolean verifyPath(Tile start, Tile end, Direction direction, int[][] maze_map) throws IOException {
