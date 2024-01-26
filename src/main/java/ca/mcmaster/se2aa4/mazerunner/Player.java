@@ -172,6 +172,6 @@ public class Player {
         return path;
     }
     public boolean isEnd(Tile end) {
-        return end.getX() == x && end.getY() == y;
+        return end.isX(x) && end.isY(y);
     }
 }

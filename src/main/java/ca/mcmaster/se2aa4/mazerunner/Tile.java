@@ -15,4 +15,12 @@ public class Tile {
         return y;
     }
 
+    public boolean isX(int x) {
+        return this.x == x;
+    }
+
+    public boolean isY(int y) {
+        return this.y == y;
+    }
+
 }

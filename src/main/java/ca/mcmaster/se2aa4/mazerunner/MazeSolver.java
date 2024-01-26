@@ -23,7 +23,6 @@ public class MazeSolver {
         logger.info("Printing from maze solver: ");
         logger.info(Arrays.deepToString(maze_binary));
         this.maze = maze;
-
     }
     public void solve() {
         try {
@@ -52,8 +51,6 @@ public class MazeSolver {
             logger.error("error occured");
             logger.error(e.getMessage());
         }
-
-
     }
     public String processPathSequence(String path_sequence) {
         logger.info("\nParsing Path Sequence");
@@ -99,7 +96,6 @@ public class MazeSolver {
                 } else {
                     factorized += String.valueOf(prev);
                 }
-
                 prev = path_sequence.charAt(i);
                 count = 1;
             }
@@ -110,8 +106,6 @@ public class MazeSolver {
         } else {
             factorized += String.valueOf(prev);
         }
-
-
         return factorized;
     }
 
