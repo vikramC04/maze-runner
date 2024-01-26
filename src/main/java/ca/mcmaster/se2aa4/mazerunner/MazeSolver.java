@@ -11,30 +11,28 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MazeSolver {
-    private final String filepath;
     private String path_sequence;
     private static final Logger logger = LogManager.getLogger();
-    Maze maze;
+    Tile west;
+    Tile east;
     private final int[][] maze_binary;
-    public MazeSolver(String filepath, String path_sequence, Maze maze) throws FileNotFoundException {
-        this.filepath = filepath;
+    public MazeSolver(String path_sequence, int[][] maze_m, Tile s, Tile e) throws FileNotFoundException {
         this.path_sequence = path_sequence;
-        maze_binary = maze.getMaze().clone();
+        maze_binary = maze_m.clone();
         logger.info("Printing from maze solver: ");
         logger.info(Arrays.deepToString(maze_binary));
-        this.maze = maze;
+        west = s;
+        east = e;
     }
     public void solve() {
         try {
             Processor processor = new Processor();
-            Tile west = maze.getStartingCoordinates();
-            Tile east = maze.getEndingCoordinates();
             if(path_sequence != null) {
                 path_sequence = processor.processPathSequence(path_sequence);
                 Player p = new Player(west, Direction.EAST, maze_binary);
                 Player p2 = new Player(east, Direction.WEST, maze_binary);
-                boolean verdict = verifyPath(west,east, p)
-                        || verifyPath(east,west, p2);
+                boolean verdict = verifyPath(east, p)
+                        || verifyPath(west, p2);
                 if(verdict) {
                     System.out.println("correct path");
                 } else {
@@ -53,7 +51,7 @@ public class MazeSolver {
             logger.error(e.getMessage());
         }
     }
-    public boolean verifyPath(Tile start, Tile end, Player player) throws IOException {
+    public boolean verifyPath(Tile end, Player player) throws IOException {
         for(char c : path_sequence.toCharArray()) {
             if(!player.isPositionValid()) return false;
             if(c == 'F') {

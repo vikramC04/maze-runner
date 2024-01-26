@@ -22,7 +22,8 @@ public class Main {
             Maze maze = new Maze(filepath);
             //logger.info("\nPrint map");
             //maze.printMap();
-            MazeSolver solver = new MazeSolver(filepath, path_sequence, maze);
+            MazeSolver solver = new MazeSolver(path_sequence, maze.getMaze(),
+                    maze.getStartingCoordinates(), maze.getEndingCoordinates());
             solver.solve();
         } catch(Exception e) {
             //logger.error("/!\\ An error has occured /!\\");
