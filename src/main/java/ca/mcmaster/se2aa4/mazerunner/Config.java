@@ -30,7 +30,7 @@ public class Config {
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd = parser.parse(options, args);
         this.filepath = cmd.getOptionValue("i", "./examples/small.maz.txt");
-        this.path_sequence = cmd.getOptionValue("p");
+        this.path_sequence = cmd.getOptionValue("p").replaceAll(" ", "");
         logger.info("**** Reading the maze from file " + filepath);
         return this.path_sequence;
     }
