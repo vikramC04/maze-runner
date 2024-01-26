@@ -9,12 +9,12 @@ public class Player {
 
     private int maze_width;
 
-    int[][] maze_binary;
+    int[][] maze_map;
 
-    public Player(Tile position, Direction start_direction, int[][] maze_map) {
+    public Player(Tile position, Direction start_direction, int[][] maze_binary) {
         x = position.getX();
         y = position.getY();
-        maze_binary = maze_map.clone();
+        maze_map= maze_binary.clone();
         direction = start_direction;
         maze_height = maze_map.length;
         maze_width = maze_map[0].length;
@@ -37,7 +37,7 @@ public class Player {
         return y;
     }
     private boolean isWall(int x, int y) {
-        if(maze_binary[y][x] == 1) return true;
+        if(maze_map[y][x] == 1) return true;
 
         return false;
     }
@@ -73,6 +73,103 @@ public class Player {
         } else if(direction == Direction.SOUTH) {
             direction = Direction.EAST;
         }
+    }
+    public String movePlayer() {
+        String path = "";
+        if(direction == Direction.EAST) {
+            path = eastAction();
+        }else if(direction == Direction.SOUTH) {
+            path = southAction();
+        }else if(direction == Direction.WEST) {
+            path = westAction();
+        } else if(direction == Direction.NORTH) {
+            path = northAction();
+        }
+        return path;
+    }
+    public String eastAction() {
+        String path = "";
+        if(maze_map[y+1][x] == 0) {
+            direction = Direction.SOUTH;
+            y++;
+            path = "RF";
+        } else if(maze_map[y][x+1] == 0) {
+            x++;
+            path = "F";
+        } else if(maze_map[y-1][x] == 0) {
+            direction = Direction.NORTH;
+            y--;
+            path = "LF";
+        } else if(maze_map[y][x-1] == 0) {
+            direction = Direction.WEST;
+            x--;
+            path = "RRF";
+        }
+
+        return path;
+    }
+    public String southAction() {
+        String path = "";
+        if (maze_map[y][x-1] == 0) {
+            direction = Direction.WEST;
+            x--;
+            path = "RF";
+        } else if (maze_map[y+1][x] == 0) {
+            y++;
+            path = "F";
+        } else if (maze_map[y][x + 1] == 0) {
+            direction = Direction.EAST;
+            x++;
+            path = "LF";
+        } else if (maze_map[y-1][x] == 0) {
+            direction = Direction.NORTH;
+            y--;
+            path = "RRF";
+        }
+
+        return path;
+    }
+    public String westAction() {
+        String path = "";
+        if(maze_map[y-1][x] == 0) {
+            direction = Direction.NORTH;
+            y--;
+            path = "RF";
+        } else if(maze_map[y][x-1] == 0) {
+            x--;
+            path = "F";
+        } else if(maze_map[y+1][x] == 0) {
+            direction = Direction.SOUTH;
+            y++;
+            path = "LF";
+        } else if(maze_map[y][x+1] == 0) {
+            direction = Direction.EAST;
+            x++;
+            path = "RRF";
+        }
+
+        return path;
+    }
+    public String northAction() {
+        String path = "";
+        if(maze_map[y][x+1] == 0) {
+            direction = Direction.EAST;
+            x++;
+            path = "RF";
+        } else if(maze_map[y-1][x] == 0) {
+            y--;
+            path = "F";
+        } else if(maze_map[y][x-1] == 0) {
+            direction = Direction.WEST;
+            x--;
+            path = "LF";
+        } else if(maze_map[y+1][x] == 0) {
+            direction = Direction.SOUTH;
+            y++;
+            path = "RRF";
+        }
+
+        return path;
     }
     public boolean isEnd(Tile end) {
         return end.getX() == x && end.getY() == y;

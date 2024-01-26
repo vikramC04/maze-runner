@@ -42,7 +42,8 @@ public class MazeSolver {
                 }
             } else {
                 logger.info("\nExecuting right hand path finding");
-                String computed_path = rightHandPathFinding(west, east, maze_binary, Direction.EAST);
+                Player player = new Player(west, Direction.EAST, maze_binary);
+                String computed_path = rightHandPathFinding(east, player);
                 System.out.println("The path is: " + computed_path);
                 System.out.println("Factorized path is: " + factorizePath(computed_path));
 
@@ -130,80 +131,10 @@ public class MazeSolver {
         }
         return player.isEnd(end);
     }
-    public String rightHandPathFinding(Tile start, Tile end, int[][] maze_map, Direction direction) {
-        int x = start.getX();
-        int y = start.getY();
+    public String rightHandPathFinding(Tile end, Player player) {
         String path = "";
-        while(x != end.getX() || y != end.getY()) {
-            if(direction == Direction.EAST) {
-                if(maze_map[y+1][x] == 0) {
-                    direction = Direction.SOUTH;
-                    y++;
-                    path += "RF";
-                } else if(maze_map[y][x+1] == 0) {
-                    x++;
-                    path += "F";
-                } else if(maze_map[y-1][x] == 0) {
-                    direction = Direction.NORTH;
-                    y--;
-                    path += "LF";
-                } else if(maze_map[y][x-1] == 0) {
-                    direction = Direction.WEST;
-                    x--;
-                    path += "RRF";
-                }
-            } else if(direction == Direction.SOUTH) {
-                if (maze_map[y][x-1] == 0) {
-                    direction = Direction.WEST;
-                    x--;
-                    path += "RF";
-                } else if (maze_map[y+1][x] == 0) {
-                    y++;
-                    path += "F";
-                } else if (maze_map[y][x + 1] == 0) {
-                    direction = Direction.EAST;
-                    x++;
-                    path += "LF";
-                } else if (maze_map[y-1][x] == 0) {
-                    direction = Direction.NORTH;
-                    y--;
-                    path += "RRF";
-                }
-            } else if(direction == Direction.WEST) {
-                if(maze_map[y-1][x] == 0) {
-                    direction = Direction.NORTH;
-                    y--;
-                    path += "RF";
-                } else if(maze_map[y][x-1] == 0) {
-                    x--;
-                    path += "F";
-                } else if(maze_map[y+1][x] == 0) {
-                    direction = Direction.SOUTH;
-                    y++;
-                    path += "LF";
-                } else if(maze_map[y][x+1] == 0) {
-                    direction = Direction.EAST;
-                    x++;
-                    path += "RRF";
-                }
-            } else if(direction == Direction.NORTH) {
-                if(maze_map[y][x+1] == 0) {
-                    direction = Direction.EAST;
-                    x++;
-                    path += "RF";
-                } else if(maze_map[y-1][x] == 0) {
-                    y--;
-                    path += "F";
-                } else if(maze_map[y][x-1] == 0) {
-                    direction = Direction.WEST;
-                    x--;
-                    path += "LF";
-                } else if(maze_map[y+1][x] == 0) {
-                    direction = Direction.SOUTH;
-                    y++;
-                    path += "RRF";
-                }
-            }
+        while(!player.isEnd(end)) {
+            path += player.movePlayer();
         }
 
         return path;
