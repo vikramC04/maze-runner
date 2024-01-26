@@ -8,11 +8,8 @@ public class Tile {
         this.y = y;
     }
 
-    public int getX() {
-        return x;
-    }
-    public int getY() {
-        return y;
+    public int[] findCoords() {
+        return new int[] {x,y};
     }
 
     public boolean isX(int x) {

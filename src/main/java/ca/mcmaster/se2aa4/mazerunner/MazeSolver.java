@@ -53,13 +53,7 @@ public class MazeSolver {
             logger.error(e.getMessage());
         }
     }
-
-
-
     public boolean verifyPath(Tile start, Tile end, Player player) throws IOException {
-        //int direction = 0;
-        int x = start.getX();
-        int y = start.getY();
         for(char c : path_sequence.toCharArray()) {
             if(!player.isPositionValid()) return false;
             if(c == 'F') {
