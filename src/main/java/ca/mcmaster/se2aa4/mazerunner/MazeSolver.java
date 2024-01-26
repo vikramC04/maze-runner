@@ -31,8 +31,10 @@ public class MazeSolver {
             Tile east = maze.getEndingCoordinates();
             if(path_sequence != null) {
                 path_sequence = processPathSequence(path_sequence);
-                boolean verdict = verifyPath(west,east,Direction.EAST, maze_binary)
-                        || verifyPath(east,west,Direction.WEST, maze_binary);
+                Player p = new Player(west, Direction.EAST, maze_binary);
+                Player p2 = new Player(east, Direction.WEST, maze_binary);
+                boolean verdict = verifyPath(west,east, p)
+                        || verifyPath(east,west, p2);
                 if(verdict) {
                     System.out.println("correct path");
                 } else {
@@ -112,47 +114,21 @@ public class MazeSolver {
         return factorized;
     }
 
-    public boolean verifyPath(Tile start, Tile end, Direction direction, int[][] maze_map) throws IOException {
+    public boolean verifyPath(Tile start, Tile end, Player player) throws IOException {
         //int direction = 0;
         int x = start.getX();
         int y = start.getY();
         for(char c : path_sequence.toCharArray()) {
-            if((y >= maze_map.length || x >= maze_map[0].length || x < 0 || y < 0) || maze_map[y][x] == 1) {
-                return false;
-            }
+            if(!player.isPositionValid()) return false;
             if(c == 'F') {
-                if(direction == Direction.EAST) {
-                    x++;
-                } else if(direction == Direction.SOUTH) {
-                    y++;
-                } else if(direction == Direction.WEST) {
-                    x--;
-                } else if(direction == Direction.NORTH) {
-                    y--;
-                }
+                player.moveForward();
             } else if(c == 'R') {
-                if(direction == Direction.EAST) {
-                    direction = Direction.SOUTH;
-                } else if(direction == Direction.SOUTH) {
-                    direction = Direction.WEST;
-                } else if(direction == Direction.WEST) {
-                    direction = Direction.NORTH;
-                }else if(direction == Direction.NORTH) {
-                    direction = Direction.EAST;
-                }
+                player.turnRight();
             } else if(c == 'L') {
-                if(direction == Direction.EAST) {
-                    direction = Direction.NORTH;
-                } else if(direction == Direction.NORTH) {
-                    direction = Direction.WEST;
-                } else if(direction == Direction.WEST) {
-                    direction = Direction.SOUTH;
-                } else if(direction == Direction.SOUTH) {
-                    direction = Direction.EAST;
-                }
+                player.turnLeft();
             }
         }
-        return (x == end.getX() && y == end.getY());
+        return player.isEnd(end);
     }
     public String rightHandPathFinding(Tile start, Tile end, int[][] maze_map, Direction direction) {
         int x = start.getX();
