@@ -12,15 +12,13 @@ public class Player {
     int[][] maze_map;
 
     public Player(Tile position, Direction start_direction, int[][] maze_binary) {
-        x = position.getX();
-        y = position.getY();
         maze_map= maze_binary.clone();
         direction = start_direction;
+        int coords[] = position.findCoords().clone();
+        x = coords[0];
+        y = coords[1];
         maze_height = maze_map.length;
         maze_width = maze_map[0].length;
-    }
-    public void setDirection() {
-
     }
     public boolean isPositionValid() {
         if((y >= maze_height || x >= maze_width || x < 0 || y < 0 || isWall(x,y))) {
