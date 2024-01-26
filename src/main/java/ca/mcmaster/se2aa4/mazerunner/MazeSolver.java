@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MazeSolver {
+public class MazeSolver implements Solver {
     private String path_sequence;
     private static final Logger logger = LogManager.getLogger();
     Tile west;
@@ -24,6 +24,7 @@ public class MazeSolver {
         west = s;
         east = e;
     }
+    @Override
     public void solve() {
         try {
             Processor processor = new Processor();
@@ -41,7 +42,7 @@ public class MazeSolver {
             } else {
                 logger.info("\nExecuting right hand path finding");
                 Player player = new Player(west, Direction.EAST, maze_binary);
-                String computed_path = rightHandPathFinding(east, player);
+                String computed_path = pathFinding(east, player);
                 System.out.println("The path is: " + computed_path);
                 System.out.println("Factorized path is: " + processor.factorizePath(computed_path));
 
@@ -51,6 +52,17 @@ public class MazeSolver {
             logger.error(e.getMessage());
         }
     }
+
+    @Override
+    public String pathFinding(Tile end, Player player) {
+        String path = "";
+        while(!player.isEnd(end)) {
+            path += player.movePlayer();
+        }
+
+        return path;
+    }
+
     public boolean verifyPath(Tile end, Player player) throws IOException {
         for(char c : path_sequence.toCharArray()) {
             if(!player.isPositionValid()) return false;
