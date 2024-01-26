@@ -22,9 +22,11 @@ public class Main {
             Maze maze = new Maze(filepath);
             //logger.info("\nPrint map");
             //maze.printMap();
-            MazeSolver solver = new MazeSolver(path_sequence, maze.getMaze(),
+            MazeRunner runner = new MazeRunner(path_sequence, maze.getMaze(),
                     maze.getStartingCoordinates(), maze.getEndingCoordinates());
-            solver.solve();
+//            MazeSolver solver = new MazeSolver(path_sequence, maze.getMaze(),
+//                    maze.getStartingCoordinates(), maze.getEndingCoordinates());
+            runner.play();
         } catch(Exception e) {
             //logger.error("/!\\ An error has occured /!\\");
             logger.error(e.getMessage());
