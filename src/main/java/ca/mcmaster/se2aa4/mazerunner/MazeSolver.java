@@ -11,11 +11,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MazeSolver {
-    private String filepath;
+    private final String filepath;
     private String path_sequence;
     private static final Logger logger = LogManager.getLogger();
     Maze maze;
-    private int[][] maze_binary;
+    private final int[][] maze_binary;
     public MazeSolver(String filepath, String path_sequence, Maze maze) throws FileNotFoundException {
         this.filepath = filepath;
         this.path_sequence = path_sequence;
@@ -26,10 +26,11 @@ public class MazeSolver {
     }
     public void solve() {
         try {
+            Processor processor = new Processor();
             Tile west = maze.getStartingCoordinates();
             Tile east = maze.getEndingCoordinates();
             if(path_sequence != null) {
-                path_sequence = processPathSequence(path_sequence);
+                path_sequence = processor.processPathSequence(path_sequence);
                 Player p = new Player(west, Direction.EAST, maze_binary);
                 Player p2 = new Player(east, Direction.WEST, maze_binary);
                 boolean verdict = verifyPath(west,east, p)
@@ -44,7 +45,7 @@ public class MazeSolver {
                 Player player = new Player(west, Direction.EAST, maze_binary);
                 String computed_path = rightHandPathFinding(east, player);
                 System.out.println("The path is: " + computed_path);
-                System.out.println("Factorized path is: " + factorizePath(computed_path));
+                System.out.println("Factorized path is: " + processor.factorizePath(computed_path));
 
             }
         }catch(Exception e) {
@@ -52,62 +53,8 @@ public class MazeSolver {
             logger.error(e.getMessage());
         }
     }
-    public String processPathSequence(String path_sequence) {
-        logger.info("\nParsing Path Sequence");
-        String path = "";
-        int i=0;
-        if(path_sequence.matches(".*\\d.*")) {
-            while(i < path_sequence.length()) {
-                char current = path_sequence.charAt(i);
-                 if(Character.isDigit(current)) {
-                     String number = "";
-                     while(i < path_sequence.length() && Character.isDigit(path_sequence.charAt(i))) {
-                         number += path_sequence.charAt(i);
-                         i++;
-                     }
-                     int value = Integer.parseInt(number);
-                     path += String.valueOf(path_sequence.charAt(i)).repeat(value - 1);
-                 }else {
-                     path += current;
-                     i++;
-                 }
-            }
-            logger.info("This is the Factorized Path sequence: " + path);
-        } else {
-            path = path_sequence;
-        }
 
-        return path;
-    }
-    private String factorizePath(String path_sequence) {
-        int i=0;
-        char prev = ' ';
-        String factorized = "";
-        int count = 0;
-        while(i < path_sequence.length()) {
-            if(prev == ' ') {
-                prev = path_sequence.charAt(i);
-                count++;
-            } else if (path_sequence.charAt(i) == prev) {
-                count++;
-            } else {
-                if(count != 1) {
-                    factorized += String.valueOf(count) + String.valueOf(prev)  ;
-                } else {
-                    factorized += String.valueOf(prev);
-                }
-                prev = path_sequence.charAt(i);
-                count = 1;
-            }
-            i++;
-        }
-        if(count != 1) {
-            factorized += String.valueOf(count) + String.valueOf(prev)  ;
-        } else {
-            factorized += String.valueOf(prev);
-        }
-        return factorized;
-    }
+
 
     public boolean verifyPath(Tile start, Tile end, Player player) throws IOException {
         //int direction = 0;
