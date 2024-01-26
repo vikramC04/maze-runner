@@ -20,19 +20,11 @@ public class Main {
             String path_sequence = conf.configure(args);
             String filepath = conf.assessValidPath();
             Maze maze = new Maze(filepath);
-            //logger.info("\nPrint map");
-            //maze.printMap();
             MazeRunner runner = new MazeRunner(path_sequence, maze.getMaze(),
                     maze.getStartingCoordinates(), maze.getEndingCoordinates());
-//            MazeSolver solver = new MazeSolver(path_sequence, maze.getMaze(),
-//                    maze.getStartingCoordinates(), maze.getEndingCoordinates());
             runner.play();
         } catch(Exception e) {
-            //logger.error("/!\\ An error has occured /!\\");
             logger.error(e.getMessage());
         }
-//        logger.info("**** Computing path");
-//        logger.info("PATH NOT COMPUTED");
-//        logger.info("** End of MazeRunner");
     }
 }

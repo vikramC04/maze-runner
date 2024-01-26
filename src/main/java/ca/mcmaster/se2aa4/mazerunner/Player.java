@@ -28,12 +28,6 @@ public class Player {
         return true;
     }
 
-    public int getX() {
-        return x;
-    }
-    public int getY() {
-        return y;
-    }
     private boolean isWall(int x, int y) {
         if(maze_map[y][x] == 1) return true;
 
@@ -85,7 +79,7 @@ public class Player {
         }
         return path;
     }
-    public String eastAction() {
+    private String eastAction() {
         String path = "";
         if(maze_map[y+1][x] == 0) {
             direction = Direction.SOUTH;
@@ -106,7 +100,7 @@ public class Player {
 
         return path;
     }
-    public String southAction() {
+    private String southAction() {
         String path = "";
         if (maze_map[y][x-1] == 0) {
             direction = Direction.WEST;
@@ -127,7 +121,7 @@ public class Player {
 
         return path;
     }
-    public String westAction() {
+    private String westAction() {
         String path = "";
         if(maze_map[y-1][x] == 0) {
             direction = Direction.NORTH;
@@ -148,7 +142,7 @@ public class Player {
 
         return path;
     }
-    public String northAction() {
+    private String northAction() {
         String path = "";
         if(maze_map[y][x+1] == 0) {
             direction = Direction.EAST;

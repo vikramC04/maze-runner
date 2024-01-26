@@ -13,7 +13,7 @@ public class MazeRunner {
     Tile west;
     Tile east;
     private final int[][] maze_binary;
-    public MazeRunner(String path_sequence, int[][] maze_m, Tile s, Tile e) throws FileNotFoundException {
+    public MazeRunner(String path_sequence, int[][] maze_m, Tile s, Tile e)  {
         this.path_sequence = path_sequence;
         maze_binary = maze_m.clone();
         logger.info("Printing from maze solver: ");
@@ -46,7 +46,7 @@ public class MazeRunner {
             logger.error(e.getMessage());
         }
     }
-    public boolean verifyPath(Tile end, Player player) throws IOException {
+    private boolean verifyPath(Tile end, Player player) throws IOException {
         for(char c : path_sequence.toCharArray()) {
             if(!player.isPositionValid()) return false;
             if(c == 'F') {
