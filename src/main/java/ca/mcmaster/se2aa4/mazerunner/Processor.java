@@ -27,7 +27,7 @@ public class Processor {
                     i++;
                 }
             }
-            logger.info("This is the Factorized Path sequence: " + path);
+            logger.info("This is the Unfactorized Path sequence: " + path);
         } else {
             path = path_sequence;
         }

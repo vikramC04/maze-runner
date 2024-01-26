@@ -29,7 +29,7 @@ public class Config {
         options.addOption("p", true, "Path Sequence to verify");
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd = parser.parse(options, args);
-        this.filepath = cmd.getOptionValue("i", "./examples/small.maz.txt");
+        this.filepath = cmd.getOptionValue("i");
         this.path_sequence = cmd.getOptionValue("p");
         if(cmd.getOptionValue("p") != null) {
             this.path_sequence = cmd.getOptionValue("p").replaceAll(" ", "");
