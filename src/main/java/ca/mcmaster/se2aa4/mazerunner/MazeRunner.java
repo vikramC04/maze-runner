@@ -16,8 +16,8 @@ public class MazeRunner {
     public MazeRunner(String path_sequence, int[][] maze_m, Tile s, Tile e)  {
         this.path_sequence = path_sequence;
         maze_binary = maze_m.clone();
-        logger.info("Printing from maze solver: ");
-        logger.info(Arrays.deepToString(maze_binary));
+        //logger.info("Printing from maze solver: ");
+        //logger.info(Arrays.deepToString(maze_binary));
         west = s;
         east = e;
     }
