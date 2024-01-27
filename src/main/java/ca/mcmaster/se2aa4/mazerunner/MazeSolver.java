@@ -9,6 +9,7 @@ public class MazeSolver implements Solver {
     private static final Logger logger = LogManager.getLogger();
     Tile west;
     Tile east;
+    private String computed_path;
     private final int[][] maze_binary;
     public MazeSolver(int[][] maze_m, Tile s, Tile e)  {
         maze_binary = maze_m.clone();
@@ -23,7 +24,7 @@ public class MazeSolver implements Solver {
             Processor processor = new Processor();
             logger.info("\nExecuting right hand path finding");
             Player player = new Player(west, Direction.EAST, maze_binary);
-            String computed_path = pathFinding(east, player);
+            computed_path = pathFinding(east, player);
             System.out.println("Factorized path is: " + processor.factorizePath(computed_path));
         }catch(Exception e) {
             logger.error("error occured");
