@@ -47,7 +47,6 @@ public class Maze {
         return null;
     }
     private void createMaze() throws IOException {
-        logger.info("Creating maze");
         ArrayList<String> maze = new ArrayList<>();
         String line;
         BufferedReader reader = new BufferedReader(new FileReader(filepath));

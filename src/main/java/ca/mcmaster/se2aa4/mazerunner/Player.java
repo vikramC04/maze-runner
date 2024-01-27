@@ -5,9 +5,9 @@ public class Player {
     private int y;
     private Direction direction;
 
-    private int maze_height;
+    private final int maze_height;
 
-    private int maze_width;
+    private final int maze_width;
 
     int[][] maze_map;
 

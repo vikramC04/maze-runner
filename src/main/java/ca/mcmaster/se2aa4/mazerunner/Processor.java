@@ -8,7 +8,6 @@ public class Processor {
     private static final Logger logger = LogManager.getLogger();
 
     public String processPathSequence(String path_sequence) {
-        logger.info("\nParsing Path Sequence");
         String path = "";
         int i=0;
         if(path_sequence.matches(".*\\d.*")) {
@@ -27,7 +26,6 @@ public class Processor {
                     i++;
                 }
             }
-            logger.info("This is the Unfactorized Path sequence: " + path);
         } else {
             path = path_sequence;
         }
