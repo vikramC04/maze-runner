@@ -20,10 +20,10 @@ public class RightHandSolver implements Solver {
     public void solve() {
         try {
             Processor processor = new Processor();
-            logger.info("\nExecuting right hand path finding");
+            logger.info("Executing right hand path finding");
             Player player = new Player(west, Direction.EAST, maze_binary);
             computed_path = pathFinding(east, player);
-            System.out.println("Factorized path is: " + processor.factorizePath(computed_path));
+            System.out.println(processor.factorizePath(computed_path));
         }catch(Exception e) {
             logger.error("error occured");
             logger.error(e.getMessage());

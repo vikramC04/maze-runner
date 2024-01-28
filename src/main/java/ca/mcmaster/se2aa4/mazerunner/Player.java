@@ -18,6 +18,7 @@ public class Player {
     private String final_path;
 
     public Player(Tile position, Direction start_direction, int[][] maze_binary) {
+        logger.info("Solving maze");
         maze_map= maze_binary.clone();
         direction = start_direction;
         int coords[] = position.findCoords().clone();
