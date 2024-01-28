@@ -18,8 +18,6 @@ public class MazeRunner {
     public MazeRunner(String path_sequence, int[][] maze_m, Tile s, Tile e, String algorithm)  {
         this.path_sequence = path_sequence;
         maze_binary = maze_m.clone();
-        //logger.info("Printing from maze solver: ");
-        //logger.info(Arrays.deepToString(maze_binary));
         west = s;
         east = e;
         this.algorithm = algorithm;
@@ -34,7 +32,6 @@ public class MazeRunner {
                 Player p2 = new Player(east, Direction.WEST, maze_binary);
                 boolean verdict = verifyPath(east, p)
                         || verifyPath(west, p2);
-
                 if(verdict) {
                     System.out.println("correct path");
                 } else {
@@ -46,6 +43,7 @@ public class MazeRunner {
                     rightHand.solve();
                 } else if(algorithm.equals("tremaux")) {
                     Solver trem = new Tremaux(maze_binary, west, east);
+                    trem.solve();
                 }
 
             }
