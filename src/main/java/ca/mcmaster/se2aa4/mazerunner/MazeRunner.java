@@ -10,16 +10,19 @@ import java.util.Arrays;
 public class MazeRunner {
     private String path_sequence;
     private static final Logger logger = LogManager.getLogger();
-    Tile west;
-    Tile east;
+    private Tile west;
+    private Tile east;
+
+    private String algorithm;
     private final int[][] maze_binary;
-    public MazeRunner(String path_sequence, int[][] maze_m, Tile s, Tile e)  {
+    public MazeRunner(String path_sequence, int[][] maze_m, Tile s, Tile e, String algorithm)  {
         this.path_sequence = path_sequence;
         maze_binary = maze_m.clone();
         //logger.info("Printing from maze solver: ");
         //logger.info(Arrays.deepToString(maze_binary));
         west = s;
         east = e;
+        this.algorithm = algorithm;
     }
 
     public void play() {
@@ -38,8 +41,13 @@ public class MazeRunner {
                     System.out.println("incorrect path");
                 }
             } else {
-                Solver rightHand = new RightHandSolver(maze_binary,  west, east);
-                rightHand.solve();
+                if(algorithm == null || algorithm.equals("righthand")) {
+                    Solver rightHand = new RightHandSolver(maze_binary,  west, east);
+                    rightHand.solve();
+                } else if(algorithm.equals("tremaux")) {
+                    Solver trem = new Tremaux(maze_binary, west, east);
+                }
+
             }
         }catch(Exception e) {
             logger.error("error occured");

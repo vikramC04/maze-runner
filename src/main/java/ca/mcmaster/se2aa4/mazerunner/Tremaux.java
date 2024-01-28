@@ -5,24 +5,24 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Arrays;
 
-public class RightHandSolver implements Solver {
+public class Tremaux implements Solver {
     private static final Logger logger = LogManager.getLogger();
     private Tile west;
     private Tile east;
     private String computed_path;
     private final int[][] maze_binary;
-    public RightHandSolver(int[][] maze_m, Tile s, Tile e)  {
+    public Tremaux(int[][] maze_m, Tile s, Tile e)  {
         maze_binary = maze_m.clone();
-        logger.info("Printing from maze solver: ");
-        logger.info(Arrays.deepToString(maze_binary));
+        //logger.info(Arrays.deepToString(maze_binary));
         west = s;
         east = e;
     }
+
     @Override
     public void solve() {
         try {
             Processor processor = new Processor();
-            logger.info("\nExecuting right hand path finding");
+            logger.info("\nExecuting tremaux path finding");
             Player player = new Player(west, Direction.EAST, maze_binary);
             computed_path = pathFinding(east, player);
             System.out.println("Factorized path is: " + processor.factorizePath(computed_path));
@@ -30,6 +30,7 @@ public class RightHandSolver implements Solver {
             logger.error("error occured");
             logger.error(e.getMessage());
         }
+
     }
 
     @Override
@@ -42,5 +43,3 @@ public class RightHandSolver implements Solver {
         return path;
     }
 }
-
-

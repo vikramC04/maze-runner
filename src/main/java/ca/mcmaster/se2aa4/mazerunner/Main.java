@@ -21,7 +21,7 @@ public class Main {
             String filepath = conf.assessValidPath();
             Maze maze = new Maze(filepath);
             MazeRunner runner = new MazeRunner(path_sequence, maze.getMaze(),
-                    maze.getStartingCoordinates(), maze.getEndingCoordinates());
+                    maze.getStartingCoordinates(), maze.getEndingCoordinates(), conf.configureAlgorithm());
             runner.play();
         } catch(Exception e) {
             logger.error(e.getMessage());
