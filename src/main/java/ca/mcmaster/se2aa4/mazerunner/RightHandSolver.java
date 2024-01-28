@@ -5,13 +5,13 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Arrays;
 
-public class MazeSolver implements Solver {
+public class RightHandSolver implements Solver {
     private static final Logger logger = LogManager.getLogger();
     Tile west;
     Tile east;
     private String computed_path;
     private final int[][] maze_binary;
-    public MazeSolver(int[][] maze_m, Tile s, Tile e)  {
+    public RightHandSolver(int[][] maze_m, Tile s, Tile e)  {
         maze_binary = maze_m.clone();
         logger.info("Printing from maze solver: ");
         logger.info(Arrays.deepToString(maze_binary));
