@@ -13,8 +13,6 @@ public class RightHandSolver implements Solver {
     private final int[][] maze_binary;
     public RightHandSolver(int[][] maze_m, Tile s, Tile e)  {
         maze_binary = maze_m.clone();
-        logger.info("Printing from maze solver: ");
-        logger.info(Arrays.deepToString(maze_binary));
         west = s;
         east = e;
     }

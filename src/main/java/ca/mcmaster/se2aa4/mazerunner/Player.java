@@ -26,18 +26,6 @@ public class Player {
         maze_height = maze_map.length;
         maze_width = maze_map[0].length;
     }
-    public Player(Tile position, Direction start_direction, int[][] maze_binary, Tile end) {
-        maze_map= maze_binary.clone();
-        direction = start_direction;
-        int coords[] = position.findCoords().clone();
-        x = coords[0];
-        y = coords[1];
-        maze_height = maze_map.length;
-        maze_width = maze_map[0].length;
-        finish = end;
-        int[] ending = end.findCoords().clone();
-        System.out.println("Ending: x" + ending[0] + " Ending: y:" + ending[1]);
-    }
     public boolean isPositionValid() {
         if((y >= maze_height || x >= maze_width || x < 0 || y < 0 || isWall(x,y))) {
             return false;
@@ -182,7 +170,8 @@ public class Player {
     /*
     Treamux Methods: All methods here are used only for the tremaux algorithm.
      */
-    public String tremaux() {
+    public String tremaux(Tile end) {
+        finish = end;
         playerdfs(x,y,maze_map);
 
         return final_path;
