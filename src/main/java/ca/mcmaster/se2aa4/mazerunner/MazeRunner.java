@@ -38,7 +38,7 @@ public class MazeRunner {
                     System.out.println("incorrect path");
                 }
             } else {
-                Solver rightHand = new MazeSolver(maze_binary,  west, east);
+                Solver rightHand = new RightHandSolver(maze_binary,  west, east);
                 rightHand.solve();
             }
         }catch(Exception e) {
