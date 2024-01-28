@@ -46,7 +46,7 @@ public class Processor {
                 count++;
             } else {
                 if(count != 1) {
-                    factorized += String.valueOf(count) + String.valueOf(prev)  ;
+                    factorized += String.valueOf(count) + String.valueOf(prev);
                 } else {
                     factorized += String.valueOf(prev);
                 }

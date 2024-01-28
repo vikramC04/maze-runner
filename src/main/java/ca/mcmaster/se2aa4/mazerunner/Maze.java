@@ -65,18 +65,6 @@ public class Maze {
             }
         }
     }
-    public void printMap() {
-        for(int i=0; i < maze_binary.length; i++) {
-            for(int j=0; j < maze_binary[0].length; j++) {
-                logger.info(maze_binary[i][j] + " ");
-            }
-            logger.info("\n");
-        }
-        logger.info("Printing from maze");
-        logger.info(Arrays.deepToString(maze_binary));
-
-
-    }
     public int[][] getMaze() {
         return maze_binary;
     }
