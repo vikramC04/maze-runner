@@ -13,7 +13,6 @@ public class Tremaux implements Solver {
     private final int[][] maze_binary;
     public Tremaux(int[][] maze_m, Tile s, Tile e)  {
         maze_binary = maze_m.clone();
-        //logger.info(Arrays.deepToString(maze_binary));
         west = s;
         east = e;
     }
@@ -22,10 +21,10 @@ public class Tremaux implements Solver {
     public void solve() {
         try {
             Processor processor = new Processor();
-            logger.info("\nExecuting tremaux path finding");
+            logger.info("Executing tremaux path finding");
             Player player = new Player(west, Direction.EAST, maze_binary);
             computed_path = pathFinding(east, player);
-            System.out.println("Factorized path is: " + processor.factorizePath(computed_path));
+            System.out.println(processor.factorizePath(computed_path));
         }catch(Exception e) {
             logger.error("error occured");
             logger.error(e.getMessage());
@@ -36,7 +35,6 @@ public class Tremaux implements Solver {
     public String pathFinding(Tile end, Player player) {
         String path = "";
         path = player.tremaux(end).replaceAll("null", "");
-
         return path;
     }
 }

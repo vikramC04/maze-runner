@@ -34,6 +34,7 @@ public class Processor {
     }
 
     public String factorizePath(String path_sequence) {
+        logger.info("Factorizing path");
         int i=0;
         char prev = ' ';
         String factorized = "";
@@ -46,9 +47,9 @@ public class Processor {
                 count++;
             } else {
                 if(count != 1) {
-                    factorized += String.valueOf(count) + String.valueOf(prev);
+                    factorized += String.valueOf(count) + String.valueOf(prev) + " ";
                 } else {
-                    factorized += String.valueOf(prev);
+                    factorized += String.valueOf(prev) + " ";
                 }
                 prev = path_sequence.charAt(i);
                 count = 1;
@@ -56,9 +57,9 @@ public class Processor {
             i++;
         }
         if(count != 1) {
-            factorized += String.valueOf(count) + String.valueOf(prev)  ;
+            factorized += String.valueOf(count) + String.valueOf(prev) + " ";
         } else {
-            factorized += String.valueOf(prev);
+            factorized += String.valueOf(prev) + " ";
         }
         return factorized;
     }
