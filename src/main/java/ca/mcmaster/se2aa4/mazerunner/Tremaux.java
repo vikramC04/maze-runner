@@ -23,7 +23,7 @@ public class Tremaux implements Solver {
         try {
             Processor processor = new Processor();
             logger.info("\nExecuting tremaux path finding");
-            Player player = new Player(west, Direction.EAST, maze_binary, east);
+            Player player = new Player(west, Direction.EAST, maze_binary);
             computed_path = pathFinding(east, player);
             System.out.println("Factorized path is: " + processor.factorizePath(computed_path));
         }catch(Exception e) {
@@ -35,7 +35,7 @@ public class Tremaux implements Solver {
     @Override
     public String pathFinding(Tile end, Player player) {
         String path = "";
-        path = player.tremaux().replaceAll("null", "");
+        path = player.tremaux(end).replaceAll("null", "");
 
         return path;
     }
