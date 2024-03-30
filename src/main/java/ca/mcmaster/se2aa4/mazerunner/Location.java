@@ -13,20 +13,16 @@ public class Location {
     public Location move(Direction direction) {
         switch (direction) {
             case NORTH -> {
-                this.y -= 1;
-                break;
+                return new Location(this.x, this.y-1);
             }
             case EAST -> {
-                this.x += 1;
-                break;
+                return new Location(this.x+1, this.y);
             }
             case SOUTH -> {
-                this.y += 1;
-                break;
+                return new Location(this.x, this.y+1);
             }
             case WEST -> {
-                this.x -= 1;
-                break;
+                return new Location(this.x-1, this.y);
             }
         }
         throw new IllegalStateException("Uncounted Value: " + this);
