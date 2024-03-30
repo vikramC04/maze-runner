@@ -12,7 +12,6 @@ public class MazeRunner {
     private static final Logger logger = LogManager.getLogger();
     private Tile west;
     private Tile east;
-
     private String algorithm;
     private final int[][] maze_binary;
     public MazeRunner(String path_sequence, int[][] maze_m, Tile s, Tile e, String algorithm)  {
