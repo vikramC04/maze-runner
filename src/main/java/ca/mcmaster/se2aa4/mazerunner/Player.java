@@ -14,7 +14,7 @@ public class Player {
     private final int maze_width;
     private static final Logger logger = LogManager.getLogger();
     int[][] maze_map;
-    
+
     public Player(Tile position, Direction start_direction, int[][] maze_binary) {
         logger.info("Solving maze");
         maze_map= maze_binary.clone();
@@ -48,26 +48,10 @@ public class Player {
         }
     }
     public void turnRight() {
-        if(direction == Direction.EAST) {
-            direction = Direction.SOUTH;
-        } else if(direction == Direction.SOUTH) {
-            direction = Direction.WEST;
-        } else if(direction == Direction.WEST) {
-            direction = Direction.NORTH;
-        }else if(direction == Direction.NORTH) {
-            direction = Direction.EAST;
-        }
+        direction = direction.nextRight();
     }
     public void turnLeft() {
-        if(direction == Direction.EAST) {
-            direction = Direction.NORTH;
-        } else if(direction == Direction.NORTH) {
-            direction = Direction.WEST;
-        } else if(direction == Direction.WEST) {
-            direction = Direction.SOUTH;
-        } else if(direction == Direction.SOUTH) {
-            direction = Direction.EAST;
-        }
+        direction = direction.nextLeft();
     }
 
     public boolean isEnd(Tile end) {
