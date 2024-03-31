@@ -17,4 +17,7 @@ public class MazeState {
 
         return true;
     }
+    public boolean isEnd(Tile end, Location location) {
+        return end.isX(location.getX()) && end.isY(location.getY());
+    }
 }

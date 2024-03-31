@@ -35,7 +35,7 @@ public class Tremaux implements Solver {
             Processor processor = new Processor();
             logger.info("Executing tremaux path finding");
             Player player = new Player(west, Direction.EAST, maze_map);
-            computed_path = pathFinding(east, player);
+            computed_path = pathFinding(east);
             System.out.println(processor.factorizePath(computed_path));
         }catch(Exception e) {
             logger.error("error occured");
@@ -43,8 +43,7 @@ public class Tremaux implements Solver {
         }
     }
 
-    @Override
-    public String pathFinding(Tile end, Player player) {
+    public String pathFinding(Tile end) {
         String path = "";
         path = tremaux(end).replaceAll("null", "");
         return path;

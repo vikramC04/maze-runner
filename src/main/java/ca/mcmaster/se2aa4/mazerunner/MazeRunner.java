@@ -43,6 +43,9 @@ public class MazeRunner {
                 } else if(algorithm.equals("tremaux")) {
                     Solver trem = new Tremaux(maze_binary, west, east);
                     trem.solve();
+                } else if(algorithm.equals("bfs")) {
+                    Solver bfs = new BreadthFirstSearch(maze_binary, west, east);
+                    bfs.solve();
                 }
 
             }

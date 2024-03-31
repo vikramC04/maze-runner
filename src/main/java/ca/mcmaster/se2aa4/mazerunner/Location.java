@@ -35,5 +35,11 @@ public class Location {
     public int getY() {
         return y;
     }
+
+    @Override
+    public String toString() {
+        String result = String.format("(%d,%d)", this.x,this.y);
+        return result;
+    }
     
 }
