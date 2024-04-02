@@ -1,18 +1,13 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class Maze {
     private String filepath;
     private int[][] maze_binary;
-    private static final Logger logger = LogManager.getLogger();
     public Maze(String filepath) throws IOException {
         this.filepath = filepath;
         createMaze();
@@ -28,6 +23,7 @@ public class Maze {
             }
             counter++;
         }
+        reader.close();
 
         return null;
     }
@@ -44,6 +40,7 @@ public class Maze {
             counter++;
         }
 
+        reader.close();
         return null;
     }
     private void createMaze() throws IOException {
@@ -64,6 +61,7 @@ public class Maze {
                 }
             }
         }
+        reader.close();
     }
     public int[][] getMaze() {
         return maze_binary;

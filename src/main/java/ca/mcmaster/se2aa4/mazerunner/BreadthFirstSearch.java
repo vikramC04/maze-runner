@@ -32,7 +32,7 @@ public class BreadthFirstSearch implements Solver {
     public void solve() {
         try {
             Processor processor = new Processor();
-            logger.info("Executing right hand path finding");
+            logger.info("Executing BFS");
             //Player player = new Player(west, Direction.EAST, maze_map);
             computed_path = pathFinding(east);
             System.out.println(processor.factorizePath(computed_path));
@@ -43,7 +43,6 @@ public class BreadthFirstSearch implements Solver {
     }
 
     public String pathFinding(Tile end) {
-        String path = "";
         Map<Location, String> map = new HashMap<>();
         Map<Location, Direction> nodeDir = new HashMap<>();
         Queue<Location> nodes = new LinkedList<>();
@@ -63,7 +62,6 @@ public class BreadthFirstSearch implements Solver {
             if(mazeState.isValid(curPosition.move(curDirection.nextRight()))) {
                 newPosition = curPosition.move(curDirection.nextRight());
                 newDirection = curDirection.nextRight();
-                path += "RF";
                 map.put(newPosition, map.get(curPosition) + "RF");
                 nodeDir.put(newPosition, newDirection);
                 nodes.offer(newPosition);
@@ -71,7 +69,6 @@ public class BreadthFirstSearch implements Solver {
             if(mazeState.isValid(curPosition.move(curDirection))) {
                 newPosition = curPosition.move(curDirection);
                 newDirection = curDirection;
-                path += "F";
                 map.put(newPosition, map.get(curPosition) + "F");
                 nodeDir.put(newPosition, newDirection);
                 nodes.offer(newPosition);
@@ -79,13 +76,11 @@ public class BreadthFirstSearch implements Solver {
             if(mazeState.isValid(curPosition.move(curDirection.nextLeft()))) {
                 newPosition = curPosition.move(curDirection.nextLeft());
                 newDirection = curDirection.nextLeft();
-                path += "LF";
                 map.put(newPosition, map.get(curPosition) + "LF");
                 nodeDir.put(newPosition, newDirection);
                 nodes.offer(newPosition);
             }
         }
         return "Unsolvable Maze";
-    }
-    
+    }  
 }
