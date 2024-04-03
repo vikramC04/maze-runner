@@ -13,11 +13,12 @@ public class BreadthFirstSearch implements Solver {
     private static final Logger logger = LogManager.getLogger();
     private Tile west;
     private Tile east;
-    private String computed_path;
     private final int[][] maze_map;
     private Direction direction = Direction.EAST;
     private Location location;
     private MazeState mazeState;
+    private long executionTime;
+    private String path;
 
     public BreadthFirstSearch(int[][] maze_m, Tile s, Tile e)  {
         maze_map = maze_m.clone();
@@ -34,8 +35,13 @@ public class BreadthFirstSearch implements Solver {
             Processor processor = new Processor();
             logger.info("Executing BFS");
             //Player player = new Player(west, Direction.EAST, maze_map);
-            computed_path = pathFinding(east);
-            System.out.println(processor.factorizePath(computed_path));
+            long startTime = System.nanoTime();
+            System.out.println("start: " + startTime);
+            path = pathFinding(east);
+            long endTime = System.nanoTime();
+            System.out.println("end: " + endTime);
+            executionTime = endTime - startTime;
+            System.out.println(processor.factorizePath(path));
         }catch(Exception e) {
             logger.error("error occured");
             logger.error(e.getMessage());
@@ -82,5 +88,15 @@ public class BreadthFirstSearch implements Solver {
             }
         }
         return "Unsolvable Maze";
-    }  
+    }
+    
+    @Override
+    public double getExecutionTime() {
+        return Math.pow(executionTime,-6);
+    }
+
+    @Override
+    public String getPath() {
+        return path;
+    }
 }

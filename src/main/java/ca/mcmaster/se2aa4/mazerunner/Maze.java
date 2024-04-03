@@ -8,9 +8,13 @@ import java.util.ArrayList;
 public class Maze {
     private String filepath;
     private int[][] maze_binary;
+    private long execTime;
     public Maze(String filepath) throws IOException {
         this.filepath = filepath;
+        long startTime = System.nanoTime();
         createMaze();
+        long stopTime = System.nanoTime();
+        execTime = stopTime - startTime;
     }
     public Tile getStartingCoordinates() throws IOException {
         String line;
@@ -43,6 +47,7 @@ public class Maze {
         reader.close();
         return null;
     }
+
     private void createMaze() throws IOException {
         ArrayList<String> maze = new ArrayList<>();
         String line;
@@ -63,7 +68,12 @@ public class Maze {
         }
         reader.close();
     }
+
     public int[][] getMaze() {
         return maze_binary;
+    }
+    
+    public double getExecutionTime() {
+        return Math.pow(execTime,-6);
     }
 }

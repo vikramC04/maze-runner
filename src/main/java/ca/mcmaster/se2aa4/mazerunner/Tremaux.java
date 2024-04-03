@@ -18,6 +18,7 @@ public class Tremaux implements Solver {
     private final int maze_width;
     private Tile finish;
     private Direction direction = Direction.EAST;
+    private String path;
     public Tremaux(int[][] maze_m, Tile s, Tile e)  {
         maze_map = maze_m.clone();
         west = s;
@@ -142,5 +143,15 @@ public class Tremaux implements Solver {
 
     private boolean isFinished(int x,int y) {
         return finish.isX(x) && finish.isY(y);
+    }
+
+    @Override
+    public double getExecutionTime() {
+        return 1;
+    }
+
+    @Override
+    public String getPath() {
+        return path;
     }
 }

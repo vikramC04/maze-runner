@@ -8,11 +8,12 @@ public class RightHandSolver implements Solver {
     private static final Logger logger = LogManager.getLogger();
     private Tile west;
     private Tile east;
-    private String computed_path;
     private final int[][] maze_map;
     private Direction direction = Direction.EAST;
     private Location location;
     private MazeState mazeState;
+    private long executionTime;
+    private String path;
 
     public RightHandSolver(int[][] maze_m, Tile s, Tile e)  {
         maze_map = maze_m.clone();
@@ -28,8 +29,11 @@ public class RightHandSolver implements Solver {
             Processor processor = new Processor();
             logger.info("Executing right hand path finding");
             //Player player = new Player(west, Direction.EAST, maze_map);
-            computed_path = pathFinding(east);
-            System.out.println(processor.factorizePath(computed_path));
+            long startTime = System.nanoTime();
+            path = pathFinding(east);
+            long endTime = System.nanoTime();
+            executionTime = endTime - startTime;
+            System.out.println(processor.factorizePath(path));
         }catch(Exception e) {
             logger.error("error occured");
             logger.error(e.getMessage());
@@ -64,6 +68,16 @@ public class RightHandSolver implements Solver {
             path += movePlayer();
         }
 
+        return path;
+    }
+
+    @Override
+    public double getExecutionTime() {
+        return Math.pow(executionTime,-6);
+    }
+
+    @Override
+    public String getPath() {
         return path;
     }
    
