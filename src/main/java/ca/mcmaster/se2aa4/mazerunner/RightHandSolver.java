@@ -14,6 +14,7 @@ public class RightHandSolver implements Solver {
     private MazeState mazeState;
     private long executionTime;
     private String path;
+    PathSequence moveSet = new PathSequence();
 
     public RightHandSolver(MazeChar[][] maze_m, Tile s, Tile e)  {
         maze_map = maze_m.clone();
@@ -40,9 +41,7 @@ public class RightHandSolver implements Solver {
         }
     }
    
-    public String movePlayer(PathSequence moveSet) {
-        
-        String path = "";
+    public void movePlayer() {
         if(mazeState.isValid(location.move(direction.nextRight()))) {
             location = location.move(direction.nextRight());
             path += "RF";
@@ -65,19 +64,13 @@ public class RightHandSolver implements Solver {
             path += "LL";
             direction = direction.nextLeft().nextLeft();
         }
-        return path;
     }
 
-    public String pathFinding(Tile end) {
-        PathSequence moveSet = new PathSequence();
-        String path = "";
-        logger.info("Start location: " + location.getX() + "," + location.getY());
+    private String pathFinding(Tile end) {
         while(!mazeState.isEnd(end, location)) {
-            path += movePlayer(moveSet);
+            movePlayer();
         }
-
-        logger.info("Path Sequence rendition: " + moveSet.getString());
-        return path;
+        return moveSet.getString();
     }
 
     @Override

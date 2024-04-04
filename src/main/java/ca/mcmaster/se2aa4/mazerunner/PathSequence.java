@@ -15,7 +15,11 @@ public class PathSequence {
     }
 
     public String getString() {
-        return Arrays.toString(moves.toArray()).replace("[", "")
-        .replace("]", "").replace(",","");
+        String path = "";
+        for(int i=0; i < moves.size(); i++) {
+            path += moves.get(i);
+        }
+            
+        return path;
     }
 }

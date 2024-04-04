@@ -46,7 +46,7 @@ public class BreadthFirstSearch implements Solver {
         }
     }
 
-    public String pathFinding(Tile end) {
+    private String pathFinding(Tile end) {
         Map<Location, String> map = new HashMap<>();
         Map<Location, Direction> nodeDir = new HashMap<>();
         Queue<Location> nodes = new LinkedList<>();
