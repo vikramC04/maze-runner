@@ -36,10 +36,8 @@ public class BreadthFirstSearch implements Solver {
             logger.info("Executing BFS");
             //Player player = new Player(west, Direction.EAST, maze_map);
             long startTime = System.nanoTime();
-            System.out.println("start: " + startTime);
             path = pathFinding(east);
             long endTime = System.nanoTime();
-            System.out.println("end: " + endTime);
             executionTime = endTime - startTime;
             System.out.println(processor.factorizePath(path));
         }catch(Exception e) {

@@ -60,7 +60,6 @@ public class RightHandSolver implements Solver {
         return path;
     }
 
-
     public String pathFinding(Tile end) {
         String path = "";
         logger.info("Start location: " + location.getX() + "," + location.getY());

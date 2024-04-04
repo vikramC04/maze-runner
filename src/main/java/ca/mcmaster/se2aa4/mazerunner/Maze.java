@@ -58,7 +58,6 @@ public class Maze {
         maze_binary = new int[maze.size()][maze.get(0).length()];
         for(int i=0; i < maze.size(); i++) {
             for(int j=0; j < maze.get(0).length(); j++) {
-                //logger.info("i: " + i + " " + "j: " + j);
                 if(maze.get(i).isEmpty() || maze.get(i).substring(j).isEmpty()||maze.get(i).substring(j, j+1).isBlank() || maze.get(i).charAt(j) == ' ') {
                     maze_binary[i][j] = 0;
                 } else if(maze.get(i).charAt(j) == '#') {
