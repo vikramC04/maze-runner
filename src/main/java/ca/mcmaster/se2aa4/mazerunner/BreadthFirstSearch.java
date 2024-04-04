@@ -13,14 +13,14 @@ public class BreadthFirstSearch implements Solver {
     private static final Logger logger = LogManager.getLogger();
     private Tile west;
     private Tile east;
-    private final int[][] maze_map;
+    private final MazeChar[][] maze_map;
     private Direction direction = Direction.EAST;
     private Location location;
     private MazeState mazeState;
     private long executionTime;
     private String path;
 
-    public BreadthFirstSearch(int[][] maze_m, Tile s, Tile e)  {
+    public BreadthFirstSearch(MazeChar[][] maze_m, Tile s, Tile e)  {
         maze_map = maze_m.clone();
         west = s;
         east = e;
@@ -55,14 +55,11 @@ public class BreadthFirstSearch implements Solver {
         nodeDir.put(location, direction);
         nodes.offer(location);
         while(!nodes.isEmpty()) {
-            //logger.info("Size of nodes: " + nodes.toString());
             Location curPosition = nodes.poll();
-            //logger.info("Location: " + curPosition.toString());
             if(mazeState.isEnd(end, curPosition)) return map.get(curPosition);
             Direction curDirection = nodeDir.get(curPosition);
             Location newPosition;
             Direction newDirection;
-
             if(mazeState.isValid(curPosition.move(curDirection.nextRight()))) {
                 newPosition = curPosition.move(curDirection.nextRight());
                 newDirection = curDirection.nextRight();
@@ -90,7 +87,7 @@ public class BreadthFirstSearch implements Solver {
     
     @Override
     public double getExecutionTime() {
-        return Math.pow(executionTime,-6);
+        return executionTime * Math.pow(10,-6);
     }
 
     @Override

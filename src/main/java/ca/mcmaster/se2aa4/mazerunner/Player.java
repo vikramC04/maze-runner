@@ -3,9 +3,6 @@ package ca.mcmaster.se2aa4.mazerunner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class Player {
     private int x;
     private int y;
@@ -13,9 +10,9 @@ public class Player {
     private final int maze_height;
     private final int maze_width;
     private static final Logger logger = LogManager.getLogger();
-    int[][] maze_map;
+    MazeChar[][] maze_map;
 
-    public Player(Tile position, Direction start_direction, int[][] maze_binary) {
+    public Player(Tile position, Direction start_direction, MazeChar[][] maze_binary) {
         logger.info("Solving maze");
         maze_map= maze_binary.clone();
         direction = start_direction;
@@ -27,7 +24,7 @@ public class Player {
     }
 
     private boolean isWall(int x, int y) {
-        if(maze_map[y][x] == 1) return true;
+        if(maze_map[y][x] == MazeChar.WALL) return true;
         return false;
     }
     public boolean isPositionValid() {

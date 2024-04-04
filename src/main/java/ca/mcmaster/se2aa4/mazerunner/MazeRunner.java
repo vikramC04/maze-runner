@@ -23,7 +23,7 @@ public class MazeRunner {
 
     public void play() {
         try {
-            int[][] mazeBinary = maze.getMaze();
+            MazeChar[][] mazeBinary = maze.getMaze();
             if(mode != null) {
                 baselineMode(mazeBinary);
             } else if(path_sequence != null) {
@@ -50,7 +50,7 @@ public class MazeRunner {
         return player.isEnd(end);
     }
 
-    private void baselineMode(int[][] mazeBinary)  {
+    private void baselineMode(MazeChar[][] mazeBinary)  {
         double mazeLoading = maze.getExecutionTime();
         Solver method;
         Solver baseline;
@@ -76,7 +76,7 @@ public class MazeRunner {
         System.out.println(output);
     }
 
-    private void verifyMode(int[][] mazeBinary) throws IOException {
+    private void verifyMode(MazeChar[][] mazeBinary) throws IOException {
         path_sequence = processor.processPathSequence(path_sequence);
         Player p = new Player(west, Direction.EAST, mazeBinary);
         Player p2 = new Player(east, Direction.WEST, mazeBinary);
@@ -89,14 +89,11 @@ public class MazeRunner {
         }
     }
 
-    private void solveMode(int[][] mazeBinary) throws IOException {
+    private void solveMode(MazeChar[][] mazeBinary) throws IOException {
         if(algorithm == null || algorithm.equals("righthand")) {
             Solver rightHand = new RightHandSolver(mazeBinary,  west, east);
             rightHand.solve();
-        } else if(algorithm.equals("tremaux")) {
-            Solver trem = new Tremaux(mazeBinary, west, east);
-            trem.solve();
-        } else if(algorithm.equals("bfs")) {
+        } else {
             Solver bfs = new BreadthFirstSearch(mazeBinary, west, east);
             bfs.solve();
         }

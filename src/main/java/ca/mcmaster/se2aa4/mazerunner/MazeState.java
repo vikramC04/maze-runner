@@ -1,13 +1,13 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
 public class MazeState {
-    private int[][] maze;
-    public MazeState(int[][] mazeBinary) {
+    private MazeChar[][] maze;
+    public MazeState(MazeChar[][] mazeBinary) {
         maze = mazeBinary.clone();
     }
 
     public boolean isWall(Location location) {
-        return maze[location.getY()][location.getX()] == 1;
+        return maze[location.getY()][location.getX()] == MazeChar.WALL;
     }
     public boolean isValid(Location location) {
         if((location.getY() >= maze.length || location.getX() >= maze[0].length

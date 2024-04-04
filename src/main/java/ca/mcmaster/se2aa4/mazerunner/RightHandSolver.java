@@ -8,14 +8,14 @@ public class RightHandSolver implements Solver {
     private static final Logger logger = LogManager.getLogger();
     private Tile west;
     private Tile east;
-    private final int[][] maze_map;
+    private final MazeChar[][] maze_map;
     private Direction direction = Direction.EAST;
     private Location location;
     private MazeState mazeState;
     private long executionTime;
     private String path;
 
-    public RightHandSolver(int[][] maze_m, Tile s, Tile e)  {
+    public RightHandSolver(MazeChar[][] maze_m, Tile s, Tile e)  {
         maze_map = maze_m.clone();
         west = s;
         east = e;
@@ -40,20 +40,28 @@ public class RightHandSolver implements Solver {
         }
     }
    
-    public String movePlayer() {
+    public String movePlayer(PathSequence moveSet) {
+        
         String path = "";
         if(mazeState.isValid(location.move(direction.nextRight()))) {
             location = location.move(direction.nextRight());
             path += "RF";
+            moveSet.addMove(Moves.R);
+            moveSet.addMove(Moves.F);
             direction = direction.nextRight();
         } else if(mazeState.isValid(location.move(direction))) {
             location = location.move(direction);
             path += "F";
+            moveSet.addMove(Moves.F);
         } else if(mazeState.isValid(location.move(direction.nextLeft()))) {
             location = location.move(direction.nextLeft());
             path += "LF";
+            moveSet.addMove(Moves.L);
+            moveSet.addMove(Moves.F);
             direction = direction.nextLeft();
         } else {
+            moveSet.addMove(Moves.L);
+            moveSet.addMove(Moves.L);
             path += "LL";
             direction = direction.nextLeft().nextLeft();
         }
@@ -61,18 +69,20 @@ public class RightHandSolver implements Solver {
     }
 
     public String pathFinding(Tile end) {
+        PathSequence moveSet = new PathSequence();
         String path = "";
         logger.info("Start location: " + location.getX() + "," + location.getY());
         while(!mazeState.isEnd(end, location)) {
-            path += movePlayer();
+            path += movePlayer(moveSet);
         }
 
+        logger.info("Path Sequence rendition: " + moveSet.getString());
         return path;
     }
 
     @Override
     public double getExecutionTime() {
-        return Math.pow(executionTime,-6);
+        return executionTime * Math.pow(10,-6);
     }
 
     @Override

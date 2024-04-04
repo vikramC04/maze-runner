@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Maze {
     private String filepath;
-    private int[][] maze_binary;
+    private MazeChar[][] maze_binary;
     private long execTime;
     public Maze(String filepath) throws IOException {
         this.filepath = filepath;
@@ -55,24 +55,24 @@ public class Maze {
         while((line = reader.readLine()) != null) {
             maze.add(line);
         }
-        maze_binary = new int[maze.size()][maze.get(0).length()];
+        maze_binary = new MazeChar[maze.size()][maze.get(0).length()];
         for(int i=0; i < maze.size(); i++) {
             for(int j=0; j < maze.get(0).length(); j++) {
                 if(maze.get(i).isEmpty() || maze.get(i).substring(j).isEmpty()||maze.get(i).substring(j, j+1).isBlank() || maze.get(i).charAt(j) == ' ') {
-                    maze_binary[i][j] = 0;
+                    maze_binary[i][j] = MazeChar.SPACE;
                 } else if(maze.get(i).charAt(j) == '#') {
-                    maze_binary[i][j] = 1;
+                    maze_binary[i][j] = MazeChar.WALL;
                 }
             }
         }
         reader.close();
     }
 
-    public int[][] getMaze() {
+    public MazeChar[][] getMaze() {
         return maze_binary;
     }
     
     public double getExecutionTime() {
-        return Math.pow(execTime,-6);
+        return execTime * Math.pow(10,-6);
     }
 }
