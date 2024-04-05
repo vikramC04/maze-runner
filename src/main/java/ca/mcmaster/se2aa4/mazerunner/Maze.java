@@ -58,10 +58,10 @@ public class Maze {
         maze_binary = new MazeChar[maze.size()][maze.get(0).length()];
         for(int i=0; i < maze.size(); i++) {
             for(int j=0; j < maze.get(0).length(); j++) {
-                if(maze.get(i).isEmpty() || maze.get(i).substring(j).isEmpty()||maze.get(i).substring(j, j+1).isBlank() || maze.get(i).charAt(j) == ' ') {
-                    maze_binary[i][j] = MazeChar.SPACE;
-                } else if(maze.get(i).charAt(j) == '#') {
+                if(maze.get(i).charAt(j) == '#') {
                     maze_binary[i][j] = MazeChar.WALL;
+                } else {
+                    maze_binary[i][j] = MazeChar.SPACE;
                 }
             }
         }

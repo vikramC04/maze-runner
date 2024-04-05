@@ -1,13 +1,17 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PathSequence {
-    List<Moves> moves = new ArrayList<>();
+    List<Moves> moves;
 
     public PathSequence() {
+        moves = new ArrayList<>();
+    }
+    public PathSequence(PathSequence path) {
+        moves = path.getMoves().stream().collect(Collectors.toList());
     }
     
     public void addMove(Moves move) {
@@ -19,7 +23,10 @@ public class PathSequence {
         for(int i=0; i < moves.size(); i++) {
             path += moves.get(i);
         }
-            
         return path;
+    }
+
+    public List<Moves> getMoves() {
+        return moves;
     }
 }

@@ -47,37 +47,45 @@ public class BreadthFirstSearch implements Solver {
     }
 
     private String pathFinding(Tile end) {
-        Map<Location, String> map = new HashMap<>();
+        Map<Location, PathSequence> moveSequence = new HashMap<>();
         Map<Location, Direction> nodeDir = new HashMap<>();
         Queue<Location> nodes = new LinkedList<>();
         
-        map.put(location, "");
+        moveSequence.put(location, new PathSequence());
         nodeDir.put(location, direction);
         nodes.offer(location);
         while(!nodes.isEmpty()) {
             Location curPosition = nodes.poll();
-            if(mazeState.isEnd(end, curPosition)) return map.get(curPosition);
+            if(mazeState.isEnd(end, curPosition)) return moveSequence.get(curPosition).getString();
             Direction curDirection = nodeDir.get(curPosition);
             Location newPosition;
             Direction newDirection;
             if(mazeState.isValid(curPosition.move(curDirection.nextRight()))) {
                 newPosition = curPosition.move(curDirection.nextRight());
                 newDirection = curDirection.nextRight();
-                map.put(newPosition, map.get(curPosition) + "RF");
+                PathSequence newRight = new PathSequence(moveSequence.get(curPosition)); 
+                newRight.addMove(Moves.R);
+                newRight.addMove(Moves.F);
+                moveSequence.put(newPosition, newRight);
                 nodeDir.put(newPosition, newDirection);
                 nodes.offer(newPosition);
             } 
             if(mazeState.isValid(curPosition.move(curDirection))) {
                 newPosition = curPosition.move(curDirection);
                 newDirection = curDirection;
-                map.put(newPosition, map.get(curPosition) + "F");
+                PathSequence newForward = new PathSequence(moveSequence.get(curPosition)); 
+                newForward.addMove(Moves.F);
+                moveSequence.put(newPosition, newForward);
                 nodeDir.put(newPosition, newDirection);
                 nodes.offer(newPosition);
             } 
             if(mazeState.isValid(curPosition.move(curDirection.nextLeft()))) {
                 newPosition = curPosition.move(curDirection.nextLeft());
                 newDirection = curDirection.nextLeft();
-                map.put(newPosition, map.get(curPosition) + "LF");
+                PathSequence newLeft = new PathSequence(moveSequence.get(curPosition)); 
+                newLeft.addMove(Moves.L);
+                newLeft.addMove(Moves.F);
+                moveSequence.put(newPosition, newLeft);
                 nodeDir.put(newPosition, newDirection);
                 nodes.offer(newPosition);
             }

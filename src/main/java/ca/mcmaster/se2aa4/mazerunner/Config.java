@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 
 public class Config {
     private static final Logger logger = LogManager.getLogger();
@@ -19,8 +20,9 @@ public class Config {
 
     }
 
-    public String assessValidPath() throws FileNotFoundException {
+    public String assessValidPath() throws FileNotFoundException, IOException {
         BufferedReader reader = new BufferedReader(new FileReader(filepath));
+        reader.close();
         return filepath;
     }
 

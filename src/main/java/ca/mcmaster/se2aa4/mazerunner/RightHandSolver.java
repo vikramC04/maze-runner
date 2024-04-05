@@ -44,24 +44,20 @@ public class RightHandSolver implements Solver {
     public void movePlayer() {
         if(mazeState.isValid(location.move(direction.nextRight()))) {
             location = location.move(direction.nextRight());
-            path += "RF";
             moveSet.addMove(Moves.R);
             moveSet.addMove(Moves.F);
             direction = direction.nextRight();
         } else if(mazeState.isValid(location.move(direction))) {
             location = location.move(direction);
-            path += "F";
             moveSet.addMove(Moves.F);
         } else if(mazeState.isValid(location.move(direction.nextLeft()))) {
             location = location.move(direction.nextLeft());
-            path += "LF";
             moveSet.addMove(Moves.L);
             moveSet.addMove(Moves.F);
             direction = direction.nextLeft();
         } else {
             moveSet.addMove(Moves.L);
             moveSet.addMove(Moves.L);
-            path += "LL";
             direction = direction.nextLeft().nextLeft();
         }
     }

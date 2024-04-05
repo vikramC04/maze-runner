@@ -4,7 +4,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Processor {
-    private String path;
     private static final Logger logger = LogManager.getLogger();
 
     public String processPathSequence(String path_sequence) {
