@@ -1,6 +1,10 @@
 package ca.mcmaster.se2aa4.mazerunner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import ca.mcmaster.se2aa4.mazerunner.benchmarking.Baseline;
+import ca.mcmaster.se2aa4.mazerunner.benchmarking.Performance;
+
 import java.io.IOException;
 
 public class MazeRunner {
@@ -38,29 +42,9 @@ public class MazeRunner {
     }
 
     private void baselineMode(MazeChar[][] mazeBinary)  {
-        double mazeLoading = maze.getExecutionTime();
-        Solver method;
-        Solver baseline;
-        if(algorithm.equals("righthand")) {
-            method = new RightHandSolver(mazeBinary, west, east);
-        } else {
-            method = new BreadthFirstSearch(mazeBinary, west, east);
-        }
-
-        if(mode.equals("righthand")) {
-            baseline = new RightHandSolver(mazeBinary, west, east);
-        } else {
-            baseline = new BreadthFirstSearch(mazeBinary, west, east);
-        }
-        method.solve();
-        baseline.solve();
-        System.out.println(String.format("Maze loading time:  %1.1e", mazeLoading));
-        double methodExec = method.getExecutionTime();
-        System.out.println(String.format("Method Execution Time: %1.1e", methodExec));
-        System.out.println(String.format("Baseline Execution Time: : %1.1e", baseline.getExecutionTime()));
-        double speedup =  baseline.getPath().length()/(double)method.getPath().length();
-        String output = String.format("Speedup: %1.1E", speedup);
-        System.out.println(output);
+        Performance baseline = new Baseline(maze, algorithm, mode, east, west);
+        baseline.benchmark();
+        
     }
 
     private void verifyMode(MazeChar[][] mazeBinary) throws IOException {
