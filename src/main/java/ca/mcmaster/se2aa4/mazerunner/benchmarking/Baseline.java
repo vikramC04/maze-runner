@@ -9,21 +9,25 @@ import ca.mcmaster.se2aa4.mazerunner.MazeChar;
 import ca.mcmaster.se2aa4.mazerunner.RightHandSolver;
 import ca.mcmaster.se2aa4.mazerunner.Solver;
 import ca.mcmaster.se2aa4.mazerunner.Tile;
+import ca.mcmaster.se2aa4.mazerunner.configurations.Algorithm;
+import ca.mcmaster.se2aa4.mazerunner.configurations.Mode;
 
 public class Baseline implements Performance {
     private Maze maze;
     private Tile east;
     private Tile west;
-    private String algorithm;
-    private String mode;
+    private Algorithm algorithm;
+    private Algorithm baselineAlgorithm;
+    private Mode mode;
     private static final Logger logger = LogManager.getLogger();
     
-    public Baseline(Maze maze, String algorithm, String baseline, Tile east, Tile west) {
+    public Baseline(Maze maze, Algorithm algorithm, Mode baseline, Tile east, Tile west, Algorithm baselineAlgorithm) {
         this.maze = maze;
         this.algorithm = algorithm;
         this.mode = baseline;
         this.east = east;
         this.west = west;
+        this.baselineAlgorithm = baselineAlgorithm;
     }
 
     @Override
@@ -34,13 +38,13 @@ public class Baseline implements Performance {
         double mazeLoading = maze.getExecutionTime();
         Solver method;
         Solver baseline;
-        if(algorithm.equals("righthand")) {
+        if(algorithm == Algorithm.RIGHTHAND) {
             method = new RightHandSolver(mazeBinary, west, east);
         } else {
             method = new BreadthFirstSearch(mazeBinary, west, east);
         }
 
-        if(mode.equals("righthand")) {
+        if(baselineAlgorithm == Algorithm.RIGHTHAND) {
             baseline = new RightHandSolver(mazeBinary, west, east);
         } else {
             baseline = new BreadthFirstSearch(mazeBinary, west, east);

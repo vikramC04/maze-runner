@@ -1,4 +1,4 @@
-package ca.mcmaster.se2aa4.mazerunner;
+package ca.mcmaster.se2aa4.mazerunner.configurations;
 
 import org.apache.commons.cli.*;
 import org.apache.logging.log4j.LogManager;
@@ -13,8 +13,9 @@ public class Config {
     private static final Logger logger = LogManager.getLogger();
     private String filepath;
     private String path_sequence;
-    private String algorithm;
-    private String baseline;
+    private Algorithm solution;
+    private Mode mode;
+    private Algorithm baselineAlgorithm;
 
     public Config(String[] args) {
 
@@ -26,12 +27,16 @@ public class Config {
         return filepath;
     }
 
-    public String configureAlgorithm() {
-        return algorithm;
+    public Algorithm configureAlgorithm() {
+        return solution;
     }
 
-    public String getBaseline() {
-        return baseline;
+    public Mode getBaseline() {
+        return mode;
+    }
+
+    public Algorithm getBaselineAlgorithm() {
+        return baselineAlgorithm;
     }
 
     public String configure(String[] args) throws ParseException  {
@@ -48,8 +53,27 @@ public class Config {
         if(cmd.getOptionValue("p") != null) {
             this.path_sequence = cmd.getOptionValue("p").replaceAll(" ", "");
         }
-        this.baseline = cmd.getOptionValue("baseline");
-        this.algorithm = cmd.getOptionValue("method");
+        String baseline = cmd.getOptionValue("baseline");
+        String algorithm = cmd.getOptionValue("method");
+
+        if(baseline != null) {
+            mode = Mode.BASELINE;
+            if(baseline.equals("righthand")) {
+                baselineAlgorithm = Algorithm.RIGHTHAND;
+            } else {
+                baselineAlgorithm = Algorithm.BFS;
+            }
+        } else if(cmd.getOptionValue("p") != null) {
+            mode = Mode.VERIFY;
+        } else {
+            mode = Mode.TEST;
+        }
+
+        if(algorithm != null && algorithm.equals("righthand")) {
+            solution = Algorithm.RIGHTHAND;
+        } else {
+            solution = Algorithm.BFS;
+        }
         logger.info("**** Reading the maze from file " + filepath);
         return this.path_sequence;
     }

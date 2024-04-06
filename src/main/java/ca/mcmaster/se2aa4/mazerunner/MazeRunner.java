@@ -4,6 +4,8 @@ import org.apache.logging.log4j.Logger;
 
 import ca.mcmaster.se2aa4.mazerunner.benchmarking.Baseline;
 import ca.mcmaster.se2aa4.mazerunner.benchmarking.Performance;
+import ca.mcmaster.se2aa4.mazerunner.configurations.Algorithm;
+import ca.mcmaster.se2aa4.mazerunner.configurations.Mode;
 
 import java.io.IOException;
 
@@ -12,25 +14,27 @@ public class MazeRunner {
     private static final Logger logger = LogManager.getLogger();
     private Tile west;
     private Tile east;
-    private String algorithm;
+    private Algorithm algorithm;
+    private Algorithm baselineAlgorithm;
     private Maze maze;
-    private String mode;
+    private Mode mode;
     Processor processor = new Processor();
-    public MazeRunner(String pathSequence, Maze maze, Tile s, Tile e, String algorithm, String mode)  {
+    public MazeRunner(String pathSequence, Maze maze, Tile s, Tile e, Algorithm algorithm, Mode mode, Algorithm baselineAlgorithm)  {
         this.pathSequence = pathSequence;
         west = s;
         east = e;
         this.algorithm = algorithm;
         this.maze = maze;
         this.mode = mode;
+        this.baselineAlgorithm = baselineAlgorithm;
     }
 
     public void play() {
         try {
             MazeChar[][] mazeBinary = maze.getMaze();
-            if(mode != null) {
+            if(mode == Mode.BASELINE) {
                 baselineMode(mazeBinary);
-            } else if(pathSequence != null) {
+            } else if(mode == Mode.VERIFY) {
                 verifyMode(mazeBinary);
             } else {
                 solveMode(mazeBinary);
@@ -42,7 +46,7 @@ public class MazeRunner {
     }
 
     private void baselineMode(MazeChar[][] mazeBinary)  {
-        Performance baseline = new Baseline(maze, algorithm, mode, east, west);
+        Performance baseline = new Baseline(maze, algorithm, mode, east, west, baselineAlgorithm);
         baseline.benchmark();
         
     }
