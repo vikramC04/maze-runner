@@ -2,10 +2,17 @@ package ca.mcmaster.se2aa4.mazerunner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import ca.mcmaster.se2aa4.mazerunner.algorithm.BreadthFirstSearch;
+import ca.mcmaster.se2aa4.mazerunner.algorithm.RightHandSolver;
+import ca.mcmaster.se2aa4.mazerunner.algorithm.Solver;
 import ca.mcmaster.se2aa4.mazerunner.benchmarking.Baseline;
 import ca.mcmaster.se2aa4.mazerunner.benchmarking.Performance;
 import ca.mcmaster.se2aa4.mazerunner.configurations.Algorithm;
 import ca.mcmaster.se2aa4.mazerunner.configurations.Mode;
+import ca.mcmaster.se2aa4.mazerunner.maze.Maze;
+import ca.mcmaster.se2aa4.mazerunner.maze.MazeChar;
+import ca.mcmaster.se2aa4.mazerunner.maze.Tile;
+import ca.mcmaster.se2aa4.mazerunner.movement.Direction;
 
 import java.io.IOException;
 
@@ -66,7 +73,8 @@ public class MazeRunner {
     }
 
     private void solveMode(MazeChar[][] mazeBinary) throws IOException {
-        if(algorithm == null || algorithm.equals("righthand")) {
+        logger.info("Algo: " + algorithm);
+        if(algorithm == null || algorithm == Algorithm.RIGHTHAND) {
             Solver rightHand = new RightHandSolver(mazeBinary,  west, east);
             rightHand.solve();
         } else {

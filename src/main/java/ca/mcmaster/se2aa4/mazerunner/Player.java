@@ -3,6 +3,11 @@ package ca.mcmaster.se2aa4.mazerunner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import ca.mcmaster.se2aa4.mazerunner.maze.MazeChar;
+import ca.mcmaster.se2aa4.mazerunner.maze.Tile;
+import ca.mcmaster.se2aa4.mazerunner.movement.Direction;
+import ca.mcmaster.se2aa4.mazerunner.movement.Location;
+
 public class Player {
     private Direction direction;
     private static final Logger logger = LogManager.getLogger();

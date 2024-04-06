@@ -2,6 +2,12 @@ package ca.mcmaster.se2aa4.mazerunner;
 
 import java.io.IOException;
 
+import ca.mcmaster.se2aa4.mazerunner.maze.Tile;
+
+import ca.mcmaster.se2aa4.mazerunner.maze.MazeState;
+
+import ca.mcmaster.se2aa4.mazerunner.maze.MazeChar;
+
 public class Verifier {
     private String path;
 

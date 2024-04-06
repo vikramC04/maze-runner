@@ -1,4 +1,4 @@
-package ca.mcmaster.se2aa4.mazerunner;
+package ca.mcmaster.se2aa4.mazerunner.algorithm;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -7,6 +7,17 @@ import java.util.Queue;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import ca.mcmaster.se2aa4.mazerunner.Processor;
+
+import ca.mcmaster.se2aa4.mazerunner.maze.Tile;
+import ca.mcmaster.se2aa4.mazerunner.movement.Direction;
+import ca.mcmaster.se2aa4.mazerunner.movement.Location;
+import ca.mcmaster.se2aa4.mazerunner.path.Moves;
+import ca.mcmaster.se2aa4.mazerunner.path.PathSequence;
+import ca.mcmaster.se2aa4.mazerunner.maze.MazeState;
+
+import ca.mcmaster.se2aa4.mazerunner.maze.MazeChar;
 
 
 public class BreadthFirstSearch implements Solver {

@@ -1,4 +1,6 @@
-package ca.mcmaster.se2aa4.mazerunner;
+package ca.mcmaster.se2aa4.mazerunner.maze;
+
+import ca.mcmaster.se2aa4.mazerunner.movement.Location;
 
 public class MazeState {
     private MazeChar[][] maze;

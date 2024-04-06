@@ -69,7 +69,7 @@ public class Config {
             mode = Mode.TEST;
         }
 
-        if(algorithm != null && algorithm.equals("righthand")) {
+        if(algorithm == null || algorithm.equals("righthand")) {
             solution = Algorithm.RIGHTHAND;
         } else {
             solution = Algorithm.BFS;

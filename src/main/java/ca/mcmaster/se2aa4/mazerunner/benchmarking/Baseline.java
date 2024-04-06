@@ -3,12 +3,12 @@ package ca.mcmaster.se2aa4.mazerunner.benchmarking;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import ca.mcmaster.se2aa4.mazerunner.BreadthFirstSearch;
-import ca.mcmaster.se2aa4.mazerunner.Maze;
-import ca.mcmaster.se2aa4.mazerunner.MazeChar;
-import ca.mcmaster.se2aa4.mazerunner.RightHandSolver;
-import ca.mcmaster.se2aa4.mazerunner.Solver;
-import ca.mcmaster.se2aa4.mazerunner.Tile;
+import ca.mcmaster.se2aa4.mazerunner.maze.Maze;
+import ca.mcmaster.se2aa4.mazerunner.maze.MazeChar;
+import ca.mcmaster.se2aa4.mazerunner.algorithm.RightHandSolver;
+import ca.mcmaster.se2aa4.mazerunner.algorithm.Solver;
+import ca.mcmaster.se2aa4.mazerunner.maze.Tile;
+import ca.mcmaster.se2aa4.mazerunner.algorithm.BreadthFirstSearch;
 import ca.mcmaster.se2aa4.mazerunner.configurations.Algorithm;
 import ca.mcmaster.se2aa4.mazerunner.configurations.Mode;
 
