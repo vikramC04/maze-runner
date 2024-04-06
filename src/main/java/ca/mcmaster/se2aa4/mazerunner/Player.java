@@ -4,45 +4,23 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Player {
-    private int x;
-    private int y;
     private Direction direction;
-    private final int maze_height;
-    private final int maze_width;
     private static final Logger logger = LogManager.getLogger();
     MazeChar[][] maze_map;
+    Location location;
 
     public Player(Tile position, Direction start_direction, MazeChar[][] maze_binary) {
         logger.info("Solving maze");
         maze_map= maze_binary.clone();
         direction = start_direction;
         int coords[] = position.findCoords().clone();
-        x = coords[0];
-        y = coords[1];
-        maze_height = maze_map.length;
-        maze_width = maze_map[0].length;
+        int x = coords[0];
+        int y = coords[1];
+        location = new Location(x,y);
     }
 
-    private boolean isWall(int x, int y) {
-        if(maze_map[y][x] == MazeChar.WALL) return true;
-        return false;
-    }
-    public boolean isPositionValid() {
-        if((y >= maze_height || x >= maze_width || x < 0 || y < 0 || isWall(x,y))) {
-            return false;
-        }
-        return true;
-    }
     public void moveForward() {
-        if(direction == Direction.EAST) {
-            x++;
-        } else if(direction == Direction.SOUTH) {
-            y++;
-        } else if(direction == Direction.WEST) {
-            x--;
-        } else if(direction == Direction.NORTH) {
-            y--;
-        }
+        location = location.move(direction);
     }
     public void turnRight() {
         direction = direction.nextRight();
@@ -51,8 +29,8 @@ public class Player {
         direction = direction.nextLeft();
     }
 
-    public boolean isEnd(Tile end) {
-        return end.isX(x) && end.isY(y);
+    public Location playerLocation() {
+        return location;
     }
     
 

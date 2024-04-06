@@ -32,9 +32,9 @@ public class RightHandSolver implements Solver {
             //Player player = new Player(west, Direction.EAST, maze_map);
             long startTime = System.nanoTime();
             path = pathFinding(east);
+            System.out.println(processor.factorizePath(path));
             long endTime = System.nanoTime();
             executionTime = endTime - startTime;
-            System.out.println(processor.factorizePath(path));
         }catch(Exception e) {
             logger.error("error occured");
             logger.error(e.getMessage());

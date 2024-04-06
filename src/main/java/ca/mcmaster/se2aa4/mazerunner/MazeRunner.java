@@ -4,7 +4,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 
 public class MazeRunner {
-    private String path_sequence;
+    private String pathSequence;
     private static final Logger logger = LogManager.getLogger();
     private Tile west;
     private Tile east;
@@ -12,8 +12,8 @@ public class MazeRunner {
     private Maze maze;
     private String mode;
     Processor processor = new Processor();
-    public MazeRunner(String path_sequence, Maze maze, Tile s, Tile e, String algorithm, String mode)  {
-        this.path_sequence = path_sequence;
+    public MazeRunner(String pathSequence, Maze maze, Tile s, Tile e, String algorithm, String mode)  {
+        this.pathSequence = pathSequence;
         west = s;
         east = e;
         this.algorithm = algorithm;
@@ -26,7 +26,7 @@ public class MazeRunner {
             MazeChar[][] mazeBinary = maze.getMaze();
             if(mode != null) {
                 baselineMode(mazeBinary);
-            } else if(path_sequence != null) {
+            } else if(pathSequence != null) {
                 verifyMode(mazeBinary);
             } else {
                 solveMode(mazeBinary);
@@ -35,19 +35,6 @@ public class MazeRunner {
             logger.error("error occured");
             logger.error(e.getMessage());
         }
-    }
-    private boolean verifyPath(Tile end, Player player) throws IOException {
-        for(char c : path_sequence.toCharArray()) {
-            if(!player.isPositionValid()) return false;
-            if(c == 'F') {
-                player.moveForward();
-            } else if(c == 'R') {
-                player.turnRight();
-            } else if(c == 'L') {
-                player.turnLeft();
-            }
-        }
-        return player.isEnd(end);
     }
 
     private void baselineMode(MazeChar[][] mazeBinary)  {
@@ -77,11 +64,12 @@ public class MazeRunner {
     }
 
     private void verifyMode(MazeChar[][] mazeBinary) throws IOException {
-        path_sequence = processor.processPathSequence(path_sequence);
+        pathSequence = processor.processPathSequence(pathSequence);
         Player p = new Player(west, Direction.EAST, mazeBinary);
         Player p2 = new Player(east, Direction.WEST, mazeBinary);
-        boolean verdict = verifyPath(east, p)
-                || verifyPath(west, p2);
+        Verifier verify = new Verifier(pathSequence);
+        boolean verdict = verify.verifyPath(east, p, mazeBinary)
+                || verify.verifyPath(west, p2, mazeBinary);
         if(verdict) {
             System.out.println("correct path");
         } else {
