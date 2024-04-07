@@ -1,4 +1,4 @@
-package ca.mcmaster.se2aa4.mazerunner.algorithm;
+package ca.mcmaster.se2aa4.mazerunner.algorithms;
 
 import java.util.HashMap;
 import java.util.LinkedList;

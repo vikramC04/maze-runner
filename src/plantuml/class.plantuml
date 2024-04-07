@@ -1,0 +1,104 @@
+@startuml Class Diagram
+
+package movement {
+  enum Direction
+  class Location
+}
+
+package algorithms {
+  interface Solver {
+    solve(): void
+    getExecutionTime(): double
+    getPath(): String
+  }
+  class BreadthFirstSearch implements Solver
+  class RightHandSolver implements Solver
+}
+
+package benchmarking {
+  interface Performance {
+    benchmark(): void 
+  }
+  class Baseline implements Performance
+}
+
+package maze {
+  interface MazeExtract {
+    getMaze(): MazeChar[][] 
+    getExecutionTime(): double
+    getEndingCoordinates(): Tile;
+    getStartingCoordinates(): Tile;
+  }
+  class Maze implements MazeExtract 
+  enum MazeChar
+  class MazeState
+  class Tile
+}
+
+
+
+package configurations {
+  class Config
+  enum Algorithm
+  enum Mode
+}
+
+package path {
+  enum Moves
+  class PathSequence
+}
+
+class MazeRunner
+class Player
+class Processor
+class Verifier
+
+Solver --> MazeChar
+Solver o-- Tile
+Solver ---> Direction
+Solver *--- MazeState
+Solver *--- Location
+Solver --> PathSequence
+
+Baseline o--- MazeChar
+Baseline o- Tile
+Baseline o-- Maze
+Baseline o-- Algorithm
+Baseline o-- Mode
+Baseline *-- Solver
+
+Config -> Algorithm
+Config --> Mode
+
+Maze --> MazeChar
+Maze -> Tile
+
+MazeState -> MazeChar
+MazeState -> Tile
+
+MazeRunner --> MazeChar
+MazeRunner o- Tile
+MazeRunner o-- Maze
+MazeRunner o-- Algorithm
+MazeRunner o-- Mode
+MazeRunner *-- Solver
+MazeRunner *-- Player
+MazeRunner *-- Processor
+MazeRunner *-- Performance
+MazeRunner *-- Verifier
+
+Player *-- Location
+Player o- Direction
+Player -> Tile
+Player o-- MazeChar
+
+Verifier --> Tile
+Verifier --> Player
+Verifier --> MazeChar
+Verifier *-- MazeState
+
+PathSequence --> Moves
+
+
+hide empty members
+@enduml 

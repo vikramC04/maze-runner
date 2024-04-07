@@ -2,9 +2,9 @@ package ca.mcmaster.se2aa4.mazerunner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import ca.mcmaster.se2aa4.mazerunner.algorithm.BreadthFirstSearch;
-import ca.mcmaster.se2aa4.mazerunner.algorithm.RightHandSolver;
-import ca.mcmaster.se2aa4.mazerunner.algorithm.Solver;
+import ca.mcmaster.se2aa4.mazerunner.algorithms.BreadthFirstSearch;
+import ca.mcmaster.se2aa4.mazerunner.algorithms.RightHandSolver;
+import ca.mcmaster.se2aa4.mazerunner.algorithms.Solver;
 import ca.mcmaster.se2aa4.mazerunner.benchmarking.Baseline;
 import ca.mcmaster.se2aa4.mazerunner.benchmarking.Performance;
 import ca.mcmaster.se2aa4.mazerunner.configurations.Algorithm;

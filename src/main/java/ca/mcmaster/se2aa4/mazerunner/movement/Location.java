@@ -1,6 +1,5 @@
 package ca.mcmaster.se2aa4.mazerunner.movement;
 
-import ca.mcmaster.se2aa4.mazerunner.movement.Direction;
 
 public class Location {
     private int x;
