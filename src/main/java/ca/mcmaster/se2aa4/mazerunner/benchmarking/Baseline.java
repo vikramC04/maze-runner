@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 import ca.mcmaster.se2aa4.mazerunner.maze.Maze;
 import ca.mcmaster.se2aa4.mazerunner.maze.MazeChar;
+import ca.mcmaster.se2aa4.mazerunner.maze.MazeExtract;
 import ca.mcmaster.se2aa4.mazerunner.maze.Tile;
 import ca.mcmaster.se2aa4.mazerunner.algorithms.BreadthFirstSearch;
 import ca.mcmaster.se2aa4.mazerunner.algorithms.RightHandSolver;
@@ -13,7 +14,7 @@ import ca.mcmaster.se2aa4.mazerunner.configurations.Algorithm;
 import ca.mcmaster.se2aa4.mazerunner.configurations.Mode;
 
 public class Baseline implements Performance {
-    private Maze maze;
+    private MazeExtract maze;
     private Tile east;
     private Tile west;
     private Algorithm algorithm;
@@ -21,7 +22,7 @@ public class Baseline implements Performance {
     private Mode mode;
     private static final Logger logger = LogManager.getLogger();
     
-    public Baseline(Maze maze, Algorithm algorithm, Mode baseline, Tile east, Tile west, Algorithm baselineAlgorithm) {
+    public Baseline(MazeExtract maze, Algorithm algorithm, Mode baseline, Tile east, Tile west, Algorithm baselineAlgorithm) {
         this.maze = maze;
         this.algorithm = algorithm;
         this.mode = baseline;

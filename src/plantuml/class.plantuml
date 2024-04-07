@@ -62,7 +62,7 @@ Solver --> PathSequence
 
 Baseline o--- MazeChar
 Baseline o- Tile
-Baseline o-- Maze
+Baseline o-- MazeExtract
 Baseline o-- Algorithm
 Baseline o-- Mode
 Baseline *-- Solver
@@ -78,7 +78,7 @@ MazeState -> Tile
 
 MazeRunner --> MazeChar
 MazeRunner o- Tile
-MazeRunner o-- Maze
+MazeRunner o-- MazeExtract
 MazeRunner o-- Algorithm
 MazeRunner o-- Mode
 MazeRunner *-- Solver

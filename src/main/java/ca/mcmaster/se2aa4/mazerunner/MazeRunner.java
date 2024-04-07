@@ -11,6 +11,7 @@ import ca.mcmaster.se2aa4.mazerunner.configurations.Algorithm;
 import ca.mcmaster.se2aa4.mazerunner.configurations.Mode;
 import ca.mcmaster.se2aa4.mazerunner.maze.Maze;
 import ca.mcmaster.se2aa4.mazerunner.maze.MazeChar;
+import ca.mcmaster.se2aa4.mazerunner.maze.MazeExtract;
 import ca.mcmaster.se2aa4.mazerunner.maze.Tile;
 import ca.mcmaster.se2aa4.mazerunner.movement.Direction;
 
@@ -23,10 +24,10 @@ public class MazeRunner {
     private Tile east;
     private Algorithm algorithm;
     private Algorithm baselineAlgorithm;
-    private Maze maze;
+    private MazeExtract maze;
     private Mode mode;
     Processor processor = new Processor();
-    public MazeRunner(String pathSequence, Maze maze, Tile s, Tile e, Algorithm algorithm, Mode mode, Algorithm baselineAlgorithm)  {
+    public MazeRunner(String pathSequence, MazeExtract maze, Tile s, Tile e, Algorithm algorithm, Mode mode, Algorithm baselineAlgorithm)  {
         this.pathSequence = pathSequence;
         west = s;
         east = e;

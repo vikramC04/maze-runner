@@ -3,7 +3,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import ca.mcmaster.se2aa4.mazerunner.configurations.Config;
-import ca.mcmaster.se2aa4.mazerunner.maze.Maze;
+import ca.mcmaster.se2aa4.mazerunner.maze.*;
 
 public class Main {
     private static final Logger logger = LogManager.getLogger();
@@ -13,7 +13,7 @@ public class Main {
             Config conf = new Config(args);
             String path_sequence = conf.configure(args);
             String filepath = conf.assessValidPath();
-            Maze maze = new Maze(filepath);
+            MazeExtract maze = new Maze(filepath);
             MazeRunner runner = new MazeRunner(path_sequence, maze,
                     maze.getStartingCoordinates(), maze.getEndingCoordinates(), 
                     conf.configureAlgorithm(), conf.getBaseline(), conf.getBaselineAlgorithm());
