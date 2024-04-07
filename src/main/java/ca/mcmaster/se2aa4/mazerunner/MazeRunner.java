@@ -75,13 +75,15 @@ public class MazeRunner {
 
     private void solveMode(MazeChar[][] mazeBinary) throws IOException {
         logger.info("Algo: " + algorithm);
+        Solver algo;
         if(algorithm == null || algorithm == Algorithm.RIGHTHAND) {
-            Solver rightHand = new RightHandSolver(mazeBinary,  west, east);
-            rightHand.solve();
+            algo = new RightHandSolver(mazeBinary,  west, east);
         } else {
-            Solver bfs = new BreadthFirstSearch(mazeBinary, west, east);
-            bfs.solve();
+            algo = new BreadthFirstSearch(mazeBinary, west, east);
         }
+        algo.solve();
+        String path = algo.getPath();
+        System.out.println(processor.factorizePath(path));
     }
 
 }

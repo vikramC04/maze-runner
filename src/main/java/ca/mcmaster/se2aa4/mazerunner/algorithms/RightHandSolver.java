@@ -3,7 +3,6 @@ package ca.mcmaster.se2aa4.mazerunner.algorithms;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import ca.mcmaster.se2aa4.mazerunner.Processor;
 import ca.mcmaster.se2aa4.mazerunner.maze.MazeChar;
 import ca.mcmaster.se2aa4.mazerunner.maze.MazeState;
 import ca.mcmaster.se2aa4.mazerunner.maze.Tile;
@@ -36,12 +35,10 @@ public class RightHandSolver implements Solver {
     @Override
     public void solve() {
         try {
-            Processor processor = new Processor();
             logger.info("Executing right hand path finding");
             //Player player = new Player(west, Direction.EAST, maze_map);
             long startTime = System.nanoTime();
             path = pathFinding(east);
-            System.out.println(processor.factorizePath(path));
             long endTime = System.nanoTime();
             executionTime = endTime - startTime;
         }catch(Exception e) {

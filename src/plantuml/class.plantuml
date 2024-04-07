@@ -36,7 +36,6 @@ package maze {
 }
 
 
-
 package configurations {
   class Config
   enum Algorithm
@@ -53,15 +52,15 @@ class Player
 class Processor
 class Verifier
 
-Solver --> MazeChar
+Solver ---> MazeChar
 Solver o-- Tile
-Solver ---> Direction
-Solver *--- MazeState
-Solver *--- Location
+Solver ----> Direction
+Solver *----- MazeState
+Solver *----- Location
 Solver --> PathSequence
 
 Baseline o--- MazeChar
-Baseline o- Tile
+Baseline o-- Tile
 Baseline o-- MazeExtract
 Baseline o-- Algorithm
 Baseline o-- Mode
@@ -76,11 +75,11 @@ Maze -> Tile
 MazeState -> MazeChar
 MazeState -> Tile
 
-MazeRunner --> MazeChar
+MazeRunner -> MazeChar
 MazeRunner o- Tile
-MazeRunner o-- MazeExtract
-MazeRunner o-- Algorithm
-MazeRunner o-- Mode
+MazeRunner o- MazeExtract
+MazeRunner o--- Algorithm
+MazeRunner o--- Mode
 MazeRunner *-- Solver
 MazeRunner *-- Player
 MazeRunner *-- Processor

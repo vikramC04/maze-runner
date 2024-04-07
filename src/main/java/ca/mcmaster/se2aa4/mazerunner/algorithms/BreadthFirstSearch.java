@@ -8,7 +8,6 @@ import java.util.Queue;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import ca.mcmaster.se2aa4.mazerunner.Processor;
 
 import ca.mcmaster.se2aa4.mazerunner.maze.Tile;
 import ca.mcmaster.se2aa4.mazerunner.movement.Direction;
@@ -43,12 +42,10 @@ public class BreadthFirstSearch implements Solver {
     @Override
     public void solve() {
         try {
-            Processor processor = new Processor();
             logger.info("Executing BFS");
             //Player player = new Player(west, Direction.EAST, maze_map);
             long startTime = System.nanoTime();
             path = pathFinding(east);
-            System.out.println(processor.factorizePath(path));
             long endTime = System.nanoTime();
             executionTime = endTime - startTime;
         }catch(Exception e) {

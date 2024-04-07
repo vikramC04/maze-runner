@@ -1,6 +1,5 @@
 package ca.mcmaster.se2aa4.mazerunner.movement;
 
-
 public class Location {
     private int x;
     private int y;
