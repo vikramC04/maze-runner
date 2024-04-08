@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             Config conf = new Config(args);
-            String path_sequence = conf.configure(args);
+            String pathSequence = conf.configure(args);
             String filepath = conf.assessValidPath();
             Algorithm algo = conf.configureAlgorithm();
             Mode baseline = conf.getBaseline();
@@ -23,7 +23,7 @@ public class Main {
             Tile end = maze.getEndingCoordinates();
             Algorithm baselineAlgorithm = conf.getBaselineAlgorithm();
 
-            MazeRunner runner = new MazeRunner(path_sequence, maze,
+            MazeRunner runner = new MazeRunner(pathSequence, maze,
             start, end, algo, baseline, baselineAlgorithm);
             runner.play();
         } catch(Exception e) {

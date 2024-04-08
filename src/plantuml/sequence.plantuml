@@ -1,4 +1,4 @@
-@startuml High Level Sequence Diagram
+@startuml Path Generation Sequence Diagram
 
 participant Main
 participant Config
@@ -6,24 +6,26 @@ participant MazeExtract
 
 Main -> Config: this(args)
 activate Config
-Config -> Main:
+Config -> Main: pathSequence
 Main -> Config: configure(args) 
 Config -> Main:
 Main -> Config: assessValidPath()
-Config -> Main:
+Config -> Main: filepath
 Main -> Config: configureAlgorithm()
-Config -> Main:
+Config -> Main: algo
 Main -> Config: getBaseline()
-Config -> Main:
+Config -> Main: baseline
+Main -> Config: getBaselineAlgorithm()
+Config -> Main: baselineAlgorithm
 deactivate Config
 
 Main -> MazeExtract: this(filepath)
 activate MazeExtract
 MazeExtract -> Main:
 Main -> MazeExtract: getStartingCoordinates()
-MazeExtract -> Main:
+MazeExtract -> Main: start
 Main -> MazeExtract: getEndingCoordinates()
-MazeExtract -> Main:
+MazeExtract -> Main: end
 deactivate MazeExtract
 
 Main -> MazeRunner: this(path_sequence, maze, start, end, algo, baseline, baselineAlgorithm)
@@ -33,6 +35,33 @@ Main -> MazeRunner: play()
 MazeRunner -> Processor: this()
 activate Processor
 Processor -> MazeRunner:
+deactivate Processor
 
+MazeRunner -> MazeExtract: getMaze()
+activate MazeExtract
+MazeExtract -> MazeRunner: mazeBinary
+deactivate MazeExtract
 
+MazeRunner -> Solver: this(mazeBinary,  west, east)
+activate Solver
+Solver -> MazeRunner:
+MazeRunner -> Solver: solve()
+Solver -> Location: this(coords[0], coords[1])
+activate Location
+Location -> Solver:
+deactivate Location
+Solver -> MazeState: this(maze_map)
+activate MazeState
+MazeState -> Solver:
+deactivate MazeState
+Solver -> Solver: pathFinding(east)
+Solver -> MazeRunner:
+MazeRunner -> Solver: getPath()
+Solver -> MazeRunner: path
+deactivate Solver
+MazeRunner -> Processor: factorizePath(path)
+activate Processor
+Processor -> MazeRunner:
+deactivate Processor
+MazeRunner -> Main:
 @enduml

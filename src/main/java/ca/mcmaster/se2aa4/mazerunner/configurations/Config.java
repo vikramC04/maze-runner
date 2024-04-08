@@ -18,7 +18,6 @@ public class Config {
     private Algorithm baselineAlgorithm;
 
     public Config(String[] args) {
-
     }
 
     public String assessValidPath() throws FileNotFoundException, IOException {

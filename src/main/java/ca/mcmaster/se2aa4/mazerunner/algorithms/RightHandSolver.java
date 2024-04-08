@@ -16,7 +16,7 @@ public class RightHandSolver implements Solver {
     private static final Logger logger = LogManager.getLogger();
     private Tile west;
     private Tile east;
-    private final MazeChar[][] maze_map;
+    private final MazeChar[][] mazeBinary;
     private Direction direction = Direction.EAST;
     private Location location;
     private MazeState mazeState;
@@ -24,19 +24,19 @@ public class RightHandSolver implements Solver {
     private String path;
     PathSequence moveSet = new PathSequence();
 
-    public RightHandSolver(MazeChar[][] maze_m, Tile s, Tile e)  {
-        maze_map = maze_m.clone();
+    public RightHandSolver(MazeChar[][] mazeEnum, Tile s, Tile e)  {
+        mazeBinary = mazeEnum.clone();
         west = s;
         east = e;
         int coords[] = west.findCoords().clone();
         location = new Location(coords[0],coords[1]);
-        mazeState= new MazeState(maze_map);
+        mazeState= new MazeState(mazeBinary);
     }
     @Override
     public void solve() {
         try {
             logger.info("Executing right hand path finding");
-            //Player player = new Player(west, Direction.EAST, maze_map);
+            //Player player = new Player(west, Direction.EAST, mazeBinary);
             long startTime = System.nanoTime();
             path = pathFinding(east);
             long endTime = System.nanoTime();
