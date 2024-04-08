@@ -1,0 +1,38 @@
+@startuml High Level Sequence Diagram
+
+participant Main
+participant Config
+participant MazeExtract
+
+Main -> Config: this(args)
+activate Config
+Config -> Main:
+Main -> Config: configure(args) 
+Config -> Main:
+Main -> Config: assessValidPath()
+Config -> Main:
+Main -> Config: configureAlgorithm()
+Config -> Main:
+Main -> Config: getBaseline()
+Config -> Main:
+deactivate Config
+
+Main -> MazeExtract: this(filepath)
+activate MazeExtract
+MazeExtract -> Main:
+Main -> MazeExtract: getStartingCoordinates()
+MazeExtract -> Main:
+Main -> MazeExtract: getEndingCoordinates()
+MazeExtract -> Main:
+deactivate MazeExtract
+
+Main -> MazeRunner: this(path_sequence, maze, start, end, algo, baseline, baselineAlgorithm)
+activate MazeRunner
+MazeRunner -> Main:
+Main -> MazeRunner: play()
+MazeRunner -> Processor: this()
+activate Processor
+Processor -> MazeRunner:
+
+
+@enduml

@@ -9,7 +9,6 @@ import ca.mcmaster.se2aa4.mazerunner.benchmarking.Baseline;
 import ca.mcmaster.se2aa4.mazerunner.benchmarking.Performance;
 import ca.mcmaster.se2aa4.mazerunner.configurations.Algorithm;
 import ca.mcmaster.se2aa4.mazerunner.configurations.Mode;
-import ca.mcmaster.se2aa4.mazerunner.maze.Maze;
 import ca.mcmaster.se2aa4.mazerunner.maze.MazeChar;
 import ca.mcmaster.se2aa4.mazerunner.maze.MazeExtract;
 import ca.mcmaster.se2aa4.mazerunner.maze.Tile;
@@ -54,7 +53,7 @@ public class MazeRunner {
     }
 
     private void baselineMode(MazeChar[][] mazeBinary)  {
-        Performance baseline = new Baseline(maze, algorithm, mode, east, west, baselineAlgorithm);
+        Performance baseline = new Baseline(maze, algorithm, east, west, baselineAlgorithm);
         baseline.benchmark();
         
     }
