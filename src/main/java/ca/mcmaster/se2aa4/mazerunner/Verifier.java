@@ -1,11 +1,7 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
-import java.io.IOException;
-
 import ca.mcmaster.se2aa4.mazerunner.maze.Tile;
-
 import ca.mcmaster.se2aa4.mazerunner.maze.MazeState;
-
 import ca.mcmaster.se2aa4.mazerunner.maze.MazeChar;
 
 public class Verifier {
@@ -15,7 +11,7 @@ public class Verifier {
         this.path = path;
     }
 
-    public boolean verifyPath(Tile end, Player player, MazeChar[][] mazeBinary) throws IOException {
+    public boolean verifyPath(Tile end, Player player, MazeChar[][] mazeBinary) {
         MazeState state = new MazeState(mazeBinary);
         for(char c : path.toCharArray()) {
             if(!state.isValid(player.playerLocation())) return false;

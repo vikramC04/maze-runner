@@ -14,8 +14,6 @@ import ca.mcmaster.se2aa4.mazerunner.maze.MazeExtract;
 import ca.mcmaster.se2aa4.mazerunner.maze.Tile;
 import ca.mcmaster.se2aa4.mazerunner.movement.Direction;
 
-import java.io.IOException;
-
 public class MazeRunner {
     private String pathSequence;
     private static final Logger logger = LogManager.getLogger();
@@ -40,7 +38,7 @@ public class MazeRunner {
         try {
             MazeChar[][] mazeBinary = maze.getMaze();
             if(mode == Mode.BASELINE) {
-                baselineMode(mazeBinary);
+                baselineMode();
             } else if(mode == Mode.VERIFY) {
                 verifyMode(mazeBinary);
             } else {
@@ -52,13 +50,12 @@ public class MazeRunner {
         }
     }
 
-    private void baselineMode(MazeChar[][] mazeBinary)  {
+    private void baselineMode()  {
         Performance baseline = new Baseline(maze, algorithm, east, west, baselineAlgorithm);
         baseline.benchmark();
-        
     }
 
-    private void verifyMode(MazeChar[][] mazeBinary) throws IOException {
+    private void verifyMode(MazeChar[][] mazeBinary) {
         pathSequence = processor.processPathSequence(pathSequence);
         Player p = new Player(west, Direction.EAST, mazeBinary);
         Player p2 = new Player(east, Direction.WEST, mazeBinary);
@@ -72,8 +69,7 @@ public class MazeRunner {
         }
     }
 
-    private void solveMode(MazeChar[][] mazeBinary) throws IOException {
-        logger.info("Algo: " + algorithm);
+    private void solveMode(MazeChar[][] mazeBinary) {
         Solver algo;
         if(algorithm == null || algorithm == Algorithm.RIGHTHAND) {
             algo = new RightHandSolver(mazeBinary,  west, east);

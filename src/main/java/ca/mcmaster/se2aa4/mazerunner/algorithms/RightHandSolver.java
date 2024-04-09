@@ -28,7 +28,7 @@ public class RightHandSolver implements Solver {
         mazeBinary = mazeEnum.clone();
         west = s;
         east = e;
-        int coords[] = west.findCoords().clone();
+        int[] coords = west.findCoords().clone();
         location = new Location(coords[0],coords[1]);
         mazeState= new MazeState(mazeBinary);
     }
@@ -36,7 +36,6 @@ public class RightHandSolver implements Solver {
     public void solve() {
         try {
             logger.info("Executing right hand path finding");
-            //Player player = new Player(west, Direction.EAST, mazeBinary);
             long startTime = System.nanoTime();
             path = pathFinding(east);
             long endTime = System.nanoTime();

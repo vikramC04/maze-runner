@@ -52,15 +52,13 @@ class Player
 class Processor
 class Verifier
 
-Solver ---> MazeChar
+Solver --> MazeChar
 Solver o-- Tile
-Solver ----> Direction
-Solver *----- MazeState
-Solver *----- Location
+Solver --> Direction
+Solver *-- MazeState
+Solver *-- Location
 Solver --> PathSequence
 
-Baseline o--- MazeChar
-Baseline o-- Tile
 Baseline o-- MazeExtract
 Baseline o-- Algorithm
 Baseline o-- Mode
@@ -91,9 +89,7 @@ Player o- Direction
 Player -> Tile
 Player o-- MazeChar
 
-Verifier --> Tile
 Verifier --> Player
-Verifier --> MazeChar
 Verifier *-- MazeState
 
 PathSequence --> Moves

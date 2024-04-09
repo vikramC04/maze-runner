@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 public class Maze implements MazeExtract {
     private String filepath;
-    private MazeChar[][] maze_binary;
+    private MazeChar[][] mazeBinary;
     private long execTime;
     private Tile start;
     private Tile end;
@@ -65,38 +65,35 @@ public class Maze implements MazeExtract {
     
 
     private void createMaze() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(filepath));
-        try {
+        
+        try(BufferedReader reader = new BufferedReader(new FileReader(filepath));) {
             ArrayList<String> maze = new ArrayList<>();
             String line;
             reader.mark(100000);
             while((line = reader.readLine()) != null) {
                 maze.add(line);
             }
-            maze_binary = new MazeChar[maze.size()][maze.get(0).length()];
+            mazeBinary = new MazeChar[maze.size()][maze.get(0).length()];
             for(int i=0; i < maze.size(); i++) {
                 for(int j=0; j < maze.get(0).length(); j++) {
                     if(maze.get(i).isEmpty() || maze.get(i).substring(j).isEmpty()||maze.get(i).substring(j, j+1).isBlank() || maze.get(i).charAt(j) == ' ') {
-                        maze_binary[i][j] = MazeChar.SPACE;
+                        mazeBinary[i][j] = MazeChar.SPACE;
                     } else if(maze.get(i).charAt(j) == '#') {
-                        maze_binary[i][j] = MazeChar.WALL;
+                        mazeBinary[i][j] = MazeChar.WALL;
                     } 
                 }
             }
             this.start = findStart(reader);
             this.end = findEnd(reader);
-            reader.close();
         } catch (Exception e) {
             logger.info(e.getStackTrace());
-        } finally {
-            reader.close();
-        }
+        } 
         
     }
 
     @Override
     public MazeChar[][] getMaze() {
-        return maze_binary;
+        return mazeBinary;
     }
     
     @Override

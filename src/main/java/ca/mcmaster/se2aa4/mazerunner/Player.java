@@ -11,14 +11,14 @@ import ca.mcmaster.se2aa4.mazerunner.movement.Location;
 public class Player {
     private Direction direction;
     private static final Logger logger = LogManager.getLogger();
-    MazeChar[][] maze_map;
+    MazeChar[][] mazeBinary;
     Location location;
 
-    public Player(Tile position, Direction start_direction, MazeChar[][] maze_binary) {
+    public Player(Tile position, Direction startDirection, MazeChar[][] mazeBinary) {
         logger.info("Solving maze");
-        maze_map= maze_binary.clone();
-        direction = start_direction;
-        int coords[] = position.findCoords().clone();
+        mazeBinary= mazeBinary.clone();
+        direction = startDirection;
+        int[] coords = position.findCoords().clone();
         int x = coords[0];
         int y = coords[1];
         location = new Location(x,y);

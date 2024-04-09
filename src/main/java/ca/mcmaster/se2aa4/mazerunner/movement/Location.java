@@ -37,8 +37,7 @@ public class Location {
 
     @Override
     public String toString() {
-        String result = String.format("(%d,%d)", this.x,this.y);
-        return result;
+        return String.format("(%d,%d)", this.x,this.y);
     }
     
 }
