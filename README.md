@@ -33,7 +33,7 @@ This program explores a maze, finding a path from an entry point to an exit one.
 To build the program, simply package it with Maven:
 
 ```
-mosser@azrael A1-Template % mvn -q clean package 
+vikramchandar@Vikrams-MacBook-Air A3 % mvn -q clean package 
 ```
 
 ### Provided version (starter code)
@@ -41,7 +41,7 @@ mosser@azrael A1-Template % mvn -q clean package
 The starter code assumes the maze file name is the first argument. 
 
 ```
-mosser@azrael A1-Template % java -jar target/mazerunner.jar ./examples/small.maz.txt
+vikramchandar@Vikrams-MacBook-Air A3 % java -jar target/mazerunner.jar ./examples/small.maz.txt
 ** Starting Maze Runner
 **** Reading the maze from file ./examples/small.maz.txt
 WALL WALL WALL WALL WALL WALL WALL WALL WALL WALL WALL 
@@ -63,7 +63,7 @@ PATH NOT COMPUTED
 When called on a non-existing file. it prints an error message
 
 ```
-mosser@azrael A1-Template % java -jar target/mazerunner.jar ./examples/small.maz.txtd
+vikramchandar@Vikrams-MacBook-Air A3 % java -jar target/mazerunner.jar ./examples/small.maz.txtd
 ** Starting Maze Runner
 **** Reading the maze from file ./examples/small.maz.txtd
 /!\ An error has occured /!\
@@ -80,34 +80,39 @@ The delivered program at the end of this assignment should use the following fla
 
 - `-i MAZE_FILE`: specifies the filename to be used;
 - `-p PATH_SEQUENCE`: activates the path verification mode to validate that PATH_SEQUENCE is correct for the maze
-
-If you are also delivering the bonus, your program will react to a third flag:
-
-- `-method {tremaux, righthand}`: specifies which path computation method to use. (default is right hand)
+- `-method {righthand, bfs}`: specifies which path computation method to use. (default is right hand)
+- `-baseline {righthand, bfs}`: specifies the execution of baseline mode and the method used for baseline 
 
 #### Examples
 
 When no logs are activated, the programs only print the computed path on the standard output.
 
 ```
-mosser@azrael A1-Template % java -jar target/mazerunner.jar -i ./examples/straight.maz.txt
+vikramchandar@Vikrams-MacBook-Air A3 % java -jar target/mazerunner.jar -i ./examples/straight.maz.txt
 4F
-mosser@azrael A1-Template %
+vikramchandar@Vikrams-MacBook-Air A3 %
 ```
 
 If a given path is correct, the program prints the message `correct path` on the standard output.
 
 ```
-mosser@azrael A1-Template % java -jar target/mazerunner.jar -i ./examples/straight.maz.txt -p 4F
+vikramchandar@Vikrams-MacBook-Air A3 % java -jar target/mazerunner.jar -i ./examples/straight.maz.txt -p 4F
 correct path
-mosser@azrael A1-Template %
+vikramchandar@Vikrams-MacBook-Air A3 %
 ```
 
 If a given path is incorrect, the program prints the message `incorrect path` on the standard output.
 
 ```
-mosser@azrael A1-Template % java -jar target/mazerunner.jar -i ./examples/straight.maz.txt -p 3F
-inccorrect path
-mosser@azrael A1-Template %
+vikramchandar@Vikrams-MacBook-Air A3 % java -jar target/mazerunner.jar -i ./examples/straight.maz.txt -p 3F
+incorrect path
+vikramchandar@Vikrams-MacBook-Air A3 %
 ```
 
+```
+vikramchandar@Vikrams-MacBook-Air A3 % java -jar target/mazerunner.jar -i ./examples/large.maz.txt -method bfs -baseline righthand
+Maze loading time:  1.2e+00
+Method Execution Time: 4.3e+00
+Baseline Execution Time: : 1.3e+00
+Speedup: 3.0E+01
+```
