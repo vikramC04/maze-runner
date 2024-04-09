@@ -5,23 +5,20 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class Config {
     private static final Logger logger = LogManager.getLogger();
     private String filepath;
-    private String path_sequence;
     private Algorithm solution;
     private Mode mode;
     private Algorithm baselineAlgorithm;
 
     public Config(String[] args) {
-
     }
 
-    public String assessValidPath() throws FileNotFoundException, IOException {
+    public String assessValidPath() throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(filepath));
         reader.close();
         return filepath;
@@ -49,9 +46,10 @@ public class Config {
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd = parser.parse(options, args);
         this.filepath = cmd.getOptionValue("i");
-        this.path_sequence = cmd.getOptionValue("p");
+
+        String pathSequence = cmd.getOptionValue("p");
         if(cmd.getOptionValue("p") != null) {
-            this.path_sequence = cmd.getOptionValue("p").replaceAll(" ", "");
+            pathSequence = cmd.getOptionValue("p").replace(" ", "");
         }
         String baseline = cmd.getOptionValue("baseline");
         String algorithm = cmd.getOptionValue("method");
@@ -69,12 +67,12 @@ public class Config {
             mode = Mode.TEST;
         }
 
-        if(algorithm != null && algorithm.equals("righthand")) {
+        if(algorithm == null || algorithm.equals("righthand")) {
             solution = Algorithm.RIGHTHAND;
         } else {
             solution = Algorithm.BFS;
         }
-        logger.info("**** Reading the maze from file " + filepath);
-        return this.path_sequence;
+        logger.info("**** Reading the maze from file ");
+        return pathSequence;
     }
 }

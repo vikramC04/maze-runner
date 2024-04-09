@@ -1,0 +1,43 @@
+@startuml
+Main -> MazeRunner:
+activate MazeRunner
+MazeRunner -> Performance: this(maze, algorithm, east, west, baselineAlgorithm)
+activate Performance
+Performance -> MazeRunner:
+MazeRunner -> Performance: benchmark()
+Performance -> MazeExtract: getMaze()
+activate MazeExtract
+Performance -> MazeRunner: mazeBinary
+Performance -> MazeExtract: getExecutionTime()
+MazeExtract -> Performance: mazeLoading
+deactivate MazeExtract
+Performance -> Solver: this(mazeBinary, west, east)
+activate Solver
+Solver -> Performance: method
+deactivate Solver
+Performance -> Solver: this(mazeBinary, west, east)
+activate Solver
+Solver -> Performance: baseline
+deactivate Solver
+Performance -> Solver: method.solve()
+activate Solver
+Solver -> Performance:
+deactivate Solver
+Performance -> Solver: baseline.solve()
+activate Solver
+Solver -> Performance:
+Performance -> Solver: getExecutionTime()
+Solver -> Performance: methodExec
+Performance -> Solver: getExecutionTime()
+Solver -> Performance: baselineExec
+Performance -> Solver: getPath()
+Solver -> Performance: baselinePath
+Performance -> Solver: getPath()
+Solver -> Performance: methodPath
+deactivate Solver
+Performance -> MazeRunner:
+MazeRunner -> Main:
+
+@enduml
+
+

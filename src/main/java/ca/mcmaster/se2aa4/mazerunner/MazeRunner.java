@@ -2,12 +2,17 @@ package ca.mcmaster.se2aa4.mazerunner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import ca.mcmaster.se2aa4.mazerunner.algorithms.BreadthFirstSearch;
+import ca.mcmaster.se2aa4.mazerunner.algorithms.RightHandSolver;
+import ca.mcmaster.se2aa4.mazerunner.algorithms.Solver;
 import ca.mcmaster.se2aa4.mazerunner.benchmarking.Baseline;
 import ca.mcmaster.se2aa4.mazerunner.benchmarking.Performance;
 import ca.mcmaster.se2aa4.mazerunner.configurations.Algorithm;
 import ca.mcmaster.se2aa4.mazerunner.configurations.Mode;
-
-import java.io.IOException;
+import ca.mcmaster.se2aa4.mazerunner.maze.MazeChar;
+import ca.mcmaster.se2aa4.mazerunner.maze.MazeExtract;
+import ca.mcmaster.se2aa4.mazerunner.maze.Tile;
+import ca.mcmaster.se2aa4.mazerunner.movement.Direction;
 
 public class MazeRunner {
     private String pathSequence;
@@ -16,10 +21,10 @@ public class MazeRunner {
     private Tile east;
     private Algorithm algorithm;
     private Algorithm baselineAlgorithm;
-    private Maze maze;
+    private MazeExtract maze;
     private Mode mode;
     Processor processor = new Processor();
-    public MazeRunner(String pathSequence, Maze maze, Tile s, Tile e, Algorithm algorithm, Mode mode, Algorithm baselineAlgorithm)  {
+    public MazeRunner(String pathSequence, MazeExtract maze, Tile s, Tile e, Algorithm algorithm, Mode mode, Algorithm baselineAlgorithm)  {
         this.pathSequence = pathSequence;
         west = s;
         east = e;
@@ -33,7 +38,7 @@ public class MazeRunner {
         try {
             MazeChar[][] mazeBinary = maze.getMaze();
             if(mode == Mode.BASELINE) {
-                baselineMode(mazeBinary);
+                baselineMode();
             } else if(mode == Mode.VERIFY) {
                 verifyMode(mazeBinary);
             } else {
@@ -45,13 +50,12 @@ public class MazeRunner {
         }
     }
 
-    private void baselineMode(MazeChar[][] mazeBinary)  {
-        Performance baseline = new Baseline(maze, algorithm, mode, east, west, baselineAlgorithm);
+    private void baselineMode()  {
+        Performance baseline = new Baseline(maze, algorithm, east, west, baselineAlgorithm);
         baseline.benchmark();
-        
     }
 
-    private void verifyMode(MazeChar[][] mazeBinary) throws IOException {
+    private void verifyMode(MazeChar[][] mazeBinary) {
         pathSequence = processor.processPathSequence(pathSequence);
         Player p = new Player(west, Direction.EAST, mazeBinary);
         Player p2 = new Player(east, Direction.WEST, mazeBinary);
@@ -65,14 +69,16 @@ public class MazeRunner {
         }
     }
 
-    private void solveMode(MazeChar[][] mazeBinary) throws IOException {
-        if(algorithm == null || algorithm.equals("righthand")) {
-            Solver rightHand = new RightHandSolver(mazeBinary,  west, east);
-            rightHand.solve();
+    private void solveMode(MazeChar[][] mazeBinary) {
+        Solver algo;
+        if(algorithm == null || algorithm == Algorithm.RIGHTHAND) {
+            algo = new RightHandSolver(mazeBinary,  west, east);
         } else {
-            Solver bfs = new BreadthFirstSearch(mazeBinary, west, east);
-            bfs.solve();
+            algo = new BreadthFirstSearch(mazeBinary, west, east);
         }
+        algo.solve();
+        String path = algo.getPath();
+        System.out.println(processor.factorizePath(path));
     }
 
 }

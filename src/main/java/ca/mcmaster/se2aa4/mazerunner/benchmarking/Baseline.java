@@ -1,30 +1,23 @@
 package ca.mcmaster.se2aa4.mazerunner.benchmarking;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import ca.mcmaster.se2aa4.mazerunner.BreadthFirstSearch;
-import ca.mcmaster.se2aa4.mazerunner.Maze;
-import ca.mcmaster.se2aa4.mazerunner.MazeChar;
-import ca.mcmaster.se2aa4.mazerunner.RightHandSolver;
-import ca.mcmaster.se2aa4.mazerunner.Solver;
-import ca.mcmaster.se2aa4.mazerunner.Tile;
+import ca.mcmaster.se2aa4.mazerunner.maze.MazeChar;
+import ca.mcmaster.se2aa4.mazerunner.maze.MazeExtract;
+import ca.mcmaster.se2aa4.mazerunner.maze.Tile;
+import ca.mcmaster.se2aa4.mazerunner.algorithms.BreadthFirstSearch;
+import ca.mcmaster.se2aa4.mazerunner.algorithms.RightHandSolver;
+import ca.mcmaster.se2aa4.mazerunner.algorithms.Solver;
 import ca.mcmaster.se2aa4.mazerunner.configurations.Algorithm;
-import ca.mcmaster.se2aa4.mazerunner.configurations.Mode;
 
 public class Baseline implements Performance {
-    private Maze maze;
+    private MazeExtract maze;
     private Tile east;
     private Tile west;
     private Algorithm algorithm;
     private Algorithm baselineAlgorithm;
-    private Mode mode;
-    private static final Logger logger = LogManager.getLogger();
     
-    public Baseline(Maze maze, Algorithm algorithm, Mode baseline, Tile east, Tile west, Algorithm baselineAlgorithm) {
+    public Baseline(MazeExtract maze, Algorithm algorithm, Tile east, Tile west, Algorithm baselineAlgorithm) {
         this.maze = maze;
         this.algorithm = algorithm;
-        this.mode = baseline;
         this.east = east;
         this.west = west;
         this.baselineAlgorithm = baselineAlgorithm;
@@ -32,8 +25,6 @@ public class Baseline implements Performance {
 
     @Override
     public void benchmark() {
-        logger.info("Algorithm is: " + algorithm);
-        logger.info("Baseline is: " + mode);
         MazeChar[][] mazeBinary = maze.getMaze();
         double mazeLoading = maze.getExecutionTime();
         Solver method;

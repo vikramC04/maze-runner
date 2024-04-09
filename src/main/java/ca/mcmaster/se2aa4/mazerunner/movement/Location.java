@@ -1,5 +1,4 @@
-package ca.mcmaster.se2aa4.mazerunner;
-
+package ca.mcmaster.se2aa4.mazerunner.movement;
 
 public class Location {
     private int x;
@@ -38,8 +37,7 @@ public class Location {
 
     @Override
     public String toString() {
-        String result = String.format("(%d,%d)", this.x,this.y);
-        return result;
+        return String.format("(%d,%d)", this.x,this.y);
     }
     
 }

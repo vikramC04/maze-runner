@@ -1,14 +1,22 @@
-package ca.mcmaster.se2aa4.mazerunner;
+package ca.mcmaster.se2aa4.mazerunner.algorithms;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import ca.mcmaster.se2aa4.mazerunner.maze.MazeChar;
+import ca.mcmaster.se2aa4.mazerunner.maze.MazeState;
+import ca.mcmaster.se2aa4.mazerunner.maze.Tile;
+import ca.mcmaster.se2aa4.mazerunner.movement.Direction;
+import ca.mcmaster.se2aa4.mazerunner.movement.Location;
+import ca.mcmaster.se2aa4.mazerunner.path.Moves;
+import ca.mcmaster.se2aa4.mazerunner.path.PathSequence;
 
 
 public class RightHandSolver implements Solver {
     private static final Logger logger = LogManager.getLogger();
     private Tile west;
     private Tile east;
-    private final MazeChar[][] maze_map;
+    private final MazeChar[][] mazeBinary;
     private Direction direction = Direction.EAST;
     private Location location;
     private MazeState mazeState;
@@ -16,23 +24,20 @@ public class RightHandSolver implements Solver {
     private String path;
     PathSequence moveSet = new PathSequence();
 
-    public RightHandSolver(MazeChar[][] maze_m, Tile s, Tile e)  {
-        maze_map = maze_m.clone();
+    public RightHandSolver(MazeChar[][] mazeEnum, Tile s, Tile e)  {
+        mazeBinary = mazeEnum.clone();
         west = s;
         east = e;
-        int coords[] = west.findCoords().clone();
+        int[] coords = west.findCoords().clone();
         location = new Location(coords[0],coords[1]);
-        mazeState= new MazeState(maze_map);
+        mazeState= new MazeState(mazeBinary);
     }
     @Override
     public void solve() {
         try {
-            Processor processor = new Processor();
             logger.info("Executing right hand path finding");
-            //Player player = new Player(west, Direction.EAST, maze_map);
             long startTime = System.nanoTime();
             path = pathFinding(east);
-            System.out.println(processor.factorizePath(path));
             long endTime = System.nanoTime();
             executionTime = endTime - startTime;
         }catch(Exception e) {

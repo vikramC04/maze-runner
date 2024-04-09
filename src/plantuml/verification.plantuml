@@ -1,0 +1,38 @@
+@startuml
+
+Main -> MazeRunner:
+activate MazeRunner
+MazeRunner -> Processor: processPathSequence(pathSequence)
+activate Processor
+Processor -> MazeRunner: pathSequence
+deactivate Processor
+
+MazeRunner -> Player: this(west, Direction.EAST, mazeBinary)
+activate Player
+Player -> Location: this(x,y)
+activate Location
+Location -> Player:
+deactivate Location
+Player -> MazeRunner:
+deactivate Player
+
+MazeRunner -> Player: this(east, Direction.WEST, mazeBinary)
+activate Player
+Player -> Location: this(x,y)
+activate Location
+Location -> Player:
+deactivate Location
+Player -> MazeRunner:
+deactivate Player
+
+MazeRunner -> Verifier: this(pathSequence)
+activate Verifier
+Verifier -> MazeRunner:
+MazeRunner -> Verifier: verifyPath(east, p, mazeBinary)
+Verifier -> MazeRunner: verdict
+MazeRunner -> Verifier: verifyPath(west, p2, mazeBinary)
+Verifier -> MazeRunner: verdict
+deactivate Verifier
+MazeRunner -> Main:
+
+@enduml
