@@ -20,11 +20,11 @@ public class PathSequence {
     }
 
     public String getString() {
-        String path = "";
+        StringBuilder path = new StringBuilder();
         for(int i=0; i < moves.size(); i++) {
-            path += moves.get(i);
+            path.append(moves.get(i));
         }
-        return path;
+        return path.toString();
     }
 
     public List<Moves> getMoves() {
