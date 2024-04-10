@@ -2,7 +2,6 @@ package ca.mcmaster.se2aa4.mazerunner.algorithms;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import ca.mcmaster.se2aa4.mazerunner.maze.MazeChar;
 import ca.mcmaster.se2aa4.mazerunner.maze.MazeState;
 import ca.mcmaster.se2aa4.mazerunner.maze.Tile;
@@ -48,23 +47,26 @@ public class RightHandSolver implements Solver {
    
     public void movePlayer() {
         if(mazeState.isValid(location.move(direction.nextRight()))) {
-            location = location.move(direction.nextRight());
             moveSet.addMove(Moves.R);
             moveSet.addMove(Moves.F);
-            direction = direction.nextRight();
+            newMove(direction.nextRight());
         } else if(mazeState.isValid(location.move(direction))) {
             location = location.move(direction);
             moveSet.addMove(Moves.F);
         } else if(mazeState.isValid(location.move(direction.nextLeft()))) {
-            location = location.move(direction.nextLeft());
+            newMove(direction.nextLeft());
             moveSet.addMove(Moves.L);
             moveSet.addMove(Moves.F);
-            direction = direction.nextLeft();
         } else {
             moveSet.addMove(Moves.L);
             moveSet.addMove(Moves.L);
             direction = direction.nextLeft().nextLeft();
         }
+    }
+
+    private void newMove(Direction newDirection) {
+        location = location.move(newDirection);
+        direction = newDirection;
     }
 
     private String pathFinding(Tile end) {

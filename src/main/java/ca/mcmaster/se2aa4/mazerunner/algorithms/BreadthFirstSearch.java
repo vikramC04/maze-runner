@@ -7,17 +7,13 @@ import java.util.Queue;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-
 import ca.mcmaster.se2aa4.mazerunner.maze.Tile;
 import ca.mcmaster.se2aa4.mazerunner.movement.Direction;
 import ca.mcmaster.se2aa4.mazerunner.movement.Location;
 import ca.mcmaster.se2aa4.mazerunner.path.Moves;
 import ca.mcmaster.se2aa4.mazerunner.path.PathSequence;
 import ca.mcmaster.se2aa4.mazerunner.maze.MazeState;
-
 import ca.mcmaster.se2aa4.mazerunner.maze.MazeChar;
-
 
 public class BreadthFirstSearch implements Solver {
     private static final Logger logger = LogManager.getLogger();
