@@ -109,6 +109,8 @@ incorrect path
 vikramchandar@Vikrams-MacBook-Air A3 %
 ```
 
+This is an example of baseline mode
+
 ```
 vikramchandar@Vikrams-MacBook-Air A3 % java -jar target/mazerunner.jar -i ./examples/large.maz.txt -method bfs -baseline righthand
 Maze loading time:  1.2e+00
